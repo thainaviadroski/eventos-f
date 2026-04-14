@@ -1,0 +1,30 @@
+h3 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.wrapper-action {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.wrapper-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 12px;
+	border-radius: 4px;
+	padding: 4px;
+}
+
+.content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 6px;
+}
+

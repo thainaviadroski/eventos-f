@@ -1,0 +1,19 @@
+<div class="evt-item">
+	<div class="evt-item-header">
+		<div>
+			<h3>{{ evento.nome }}</h3>
+			<p>{{ evento.descricao }}</p>
+		</div>
+		<div class="evt-actions">
+			<button class="btn btn-primary">
+				<mat-icon style="font-size: 18px; width: 18px; height: 18px;">edit</mat-icon>
+			</button>
+			<button class="btn btn-danger">
+				<mat-icon style="font-size: 18px; width: 18px; height: 18px;">delete</mat-icon>
+			</button>
+		</div>
+	</div>
+
+	<small><b>Data de Início:</b> {{ evento.dtInicio | date:'dd/MM/yyyy' }} | <b>Data de Fim:</b> {{
+		evento.dtFim | date:'dd/MM/yyyy' }}</small>
+</div>

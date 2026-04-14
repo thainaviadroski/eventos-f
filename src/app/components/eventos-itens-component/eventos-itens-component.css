@@ -1,0 +1,41 @@
+.evt-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 8px;
+	width: 100%;
+	padding: 12px;
+	background-color: #dbdbdba1;
+	border-bottom: 1px solid #dbdbdba1;
+	border-radius: 10px;
+}
+
+.evt-item p {
+	font-size: 14px;
+	color: var(--text-muted-color);
+}
+.evt-item-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 8px;
+}
+.evt-actions{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+}
+
+.evt-item h3 {
+	font-size: 16px;
+	font-weight: 500;
+	color: var(--text-primary-color);
+}
+
+.evt-item small {
+	border-top: 1px solid #a7a7a73f;
+	font-size: 12px;
+	color: var(--text-muted-color);
+}
