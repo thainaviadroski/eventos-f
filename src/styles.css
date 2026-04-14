@@ -36,7 +36,6 @@ body {
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-
 .btn {
 	display: flex;
 	flex-direction: row;
@@ -71,5 +70,10 @@ body {
 
 .btn-danger:hover{
 	background-color: #6b0404;
+	color: var(--white);
+}
+
+.btn-info{
+	background-color: var(--light-blue);
 	color: var(--white);
 }
