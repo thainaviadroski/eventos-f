@@ -1,5 +1,5 @@
 {
-	"products": [
+	"eventos": [
 		{
 			"id": 1,
 			"nome": "Evento 1",
@@ -13,6 +13,22 @@
 			"dtInicio": "2024-08-01",
 			"dtFim": "2024-08-02",
 			"descricao": "Descrição do Evento 2"
+		}
+	],
+	"certificados": [
+		{
+			"id": 1,
+			"nome": "Certificado 1",
+			"dtEmissao": "2024-07-03",
+			"tipo": "Participante",
+			"descricao": "Descrição do Certificado 1"
+		},
+		{
+			"id": 2,
+			"nome": "Certificado 2",
+			"dtEmissao": "2024-08-03",
+			"tipo": "Palestrante",
+			"descricao": "Descrição do Certificado 2"
 		}
 	]
 }
