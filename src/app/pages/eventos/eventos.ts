@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { EventosItensComponent } from '../../components/eventos-itens-component/eventos-itens-component';
-import { EventosService } from '../../service/eventos-service';
+import { EventosService } from '../../service/eventos/eventos-service';
 
 @Component({
 	selector: 'app-eventos',

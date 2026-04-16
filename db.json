@@ -18,6 +18,7 @@
 	"certificados": [
 		{
 			"id": 1,
+			"eventoId": 1,
 			"nome": "Certificado 1",
 			"dtEmissao": "2024-07-03",
 			"tipo": "Participante",
@@ -25,6 +26,7 @@
 		},
 		{
 			"id": 2,
+			"eventoId": 2,
 			"nome": "Certificado 2",
 			"dtEmissao": "2024-08-03",
 			"tipo": "Palestrante",

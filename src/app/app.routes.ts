@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { EventosService } from './service/eventos-service';
+import { EventosService } from './service/eventos/eventos-service';
 
 
 export const routes: Routes = [
