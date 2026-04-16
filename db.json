@@ -1,0 +1,18 @@
+{
+	"products": [
+		{
+			"id": 1,
+			"nome": "Evento 1",
+			"dtInicio": "2024-07-01",
+			"dtFim": "2024-07-02",
+			"descricao": "Descrição do Evento 1"
+		},
+		{
+			"id": 2,
+			"nome": "Evento 2",
+			"dtInicio": "2024-08-01",
+			"dtFim": "2024-08-02",
+			"descricao": "Descrição do Evento 2"
+		}
+	]
+}

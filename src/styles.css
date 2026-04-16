@@ -42,7 +42,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	padding: 8px 16px;
-	font-size: 10px;
+	font-size: 14px;
 	gap: 2px;
 	font-weight: 500;
 	text-align: center;
@@ -63,17 +63,17 @@ body {
 	color: var(--white);
 }
 
-.btn-danger{
+.btn-danger {
 	background-color: var(--danger-color);
 	color: var(--white);
 }
 
-.btn-danger:hover{
+.btn-danger:hover {
 	background-color: #6b0404;
 	color: var(--white);
 }
 
-.btn-info{
+.btn-info {
 	background-color: var(--light-blue);
 	color: var(--white);
 }

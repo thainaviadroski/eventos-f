@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -10,4 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class EventosItensComponent {
 	@Input() evento: any;
+
+	@Output() viewDetail = new EventEmitter<void>();
+
+	onDetail() {
+		this.viewDetail.emit();
+	}
 }

@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { EventosItensComponent } from '../../components/eventos-itens-component/eventos-itens-component';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-eventos',
-	imports: [MatIconModule, MatButtonModule,EventosItensComponent],
+	imports: [MatIconModule, MatButtonModule, EventosItensComponent],
 	templateUrl: './eventos.html',
 	styleUrl: './eventos.css',
 })
 export class Eventos {
+
+
+	private route: Router = inject(Router);
 
 	eventos = [
 		{
@@ -27,5 +31,9 @@ export class Eventos {
 		}
 	];
 
+	onDetail(eventoId: number) {
+		console.info("Chamou o detalhe do evento com id: ", eventoId);
+		this.route.navigateByUrl(`eventos/${eventoId}/detail`);
+	}
 
 }

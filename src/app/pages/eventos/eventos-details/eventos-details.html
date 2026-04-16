@@ -1,0 +1,33 @@
+<!-- Detalhes dos eventos  -->
+<div class="evento-header">
+	<h2> {{evento.id}} - {{evento.nome}} </h2>
+	<p>{{evento.descricao}}</p>
+	<p>
+		<b>Data de Início:</b> {{evento.dtInicio | date: 'dd/MM/yyyy'}} - <b>Data de Fim:</b> {{evento.dtFim | date:
+		'dd/MM/yyyy'}}
+	</p>
+
+</div>
+
+<div class="wrapper-certificados">
+	<div class="action">
+		<button class="btn btn-primary"> <mat-icon>add</mat-icon> Novo Certificado</button>
+	</div>
+
+	<div class="list-certificados">
+		<div class="cert-header">
+			<p>ID</p>
+			<p>Tipo</p>
+			<p>Descrição</p>
+			<p><b>Data de Emissão</b></p>
+		</div>
+		@for(certificado of certificados; track certificado.id) {
+		<div class="certificado">
+			<p>{{certificado.id}}</p>
+			<p>{{certificado.tipo}}</p>
+			<p>{{certificado.descricao}}</p>
+			<p>{{certificado.dtEmissao | date: 'dd/MM/yyyy'}}</p>
+		</div>
+		}
+	</div>
+</div>
