@@ -1,8 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { EventosItensComponent } from '../../components/eventos-itens-component/eventos-itens-component';
 import { Router } from '@angular/router';
+import { take } from 'rxjs';
+import { EventosItensComponent } from '../../components/eventos-itens-component/eventos-itens-component';
+import { EventosService } from '../../service/eventos-service';
 
 @Component({
 	selector: 'app-eventos',
@@ -10,26 +12,22 @@ import { Router } from '@angular/router';
 	templateUrl: './eventos.html',
 	styleUrl: './eventos.css',
 })
-export class Eventos {
-
+export class Eventos implements OnInit {
 
 	private route: Router = inject(Router);
+	private service = inject(EventosService);
 
-	eventos = [
-		{
-			id: 1,
-			nome: 'Evento 1',
-			dtInicio: '2024-07-01',
-			dtFim: '2024-07-02',
-			descricao: 'Descrição do Evento 1'
-		}, {
-			id: 2,
-			nome: 'Evento 2',
-			dtInicio: '2024-08-01',
-			dtFim: '2024-08-02',
-			descricao: 'Descrição do Evento 2'
-		}
-	];
+	eventos: any[] = [];
+
+	ngOnInit(): void {
+		this.service.get()
+			.pipe(take(1))
+			.subscribe((data) => {
+				console.info(data)
+				this.eventos = data;
+			});
+	}
+
 
 	onDetail(eventoId: number) {
 		console.info("Chamou o detalhe do evento com id: ", eventoId);

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatIcon } from "@angular/material/icon";
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'app-eventos-details',
@@ -10,12 +11,9 @@ import { MatIcon } from "@angular/material/icon";
 })
 export class EventosDetails {
 
-	evento = {
-		id: 1,
-		nome: 'Evento 1',
-		dtInicio: '2024-07-01',
-		dtFim: '2024-07-02',
-		descricao: 'Descrição do Evento 1'
+	evento: any
+	constructor(private route: ActivatedRoute, private router: Router) {
+		this.evento = this.route.snapshot.data['evento'];
 	}
 
 	certificados = [
