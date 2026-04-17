@@ -53,27 +53,231 @@ body {
 	cursor: pointer;
 }
 
+/* === FILLED (preenchimento) === */
 .btn-primary {
 	background-color: var(--primary-color);
 	color: var(--white);
+	border: 2px solid var(--primary-color);
 }
 
 .btn-primary:hover {
 	background-color: var(--dark-blue);
-	color: var(--white);
-}
-
-.btn-danger {
-	background-color: var(--danger-color);
-	color: var(--white);
-}
-
-.btn-danger:hover {
-	background-color: #6b0404;
-	color: var(--white);
+	border-color: var(--dark-blue);
 }
 
 .btn-info {
 	background-color: var(--light-blue);
 	color: var(--white);
+	border: 2px solid var(--light-blue);
+}
+
+.btn-info:hover {
+	background-color: var(--primary-color);
+	border-color: var(--primary-color);
+}
+
+.btn-danger {
+	background-color: var(--danger-color);
+	color: var(--white);
+	border: 2px solid var(--danger-color);
+}
+
+.btn-danger:hover {
+	background-color: #6b0404;
+	border-color: #6b0404;
+}
+
+.btn-warning {
+	background-color: var(--warning-color);
+	color: var(--text-color);
+	border: 2px solid var(--warning-color);
+}
+
+.btn-warning:hover {
+	background-color: #d4ac00;
+	border-color: #d4ac00;
+}
+
+.btn-secondary {
+	background-color: var(--secondary-color);
+	color: var(--text-color);
+	border: 2px solid var(--secondary-color);
+}
+
+.btn-secondary:hover {
+	background-color: #e1dfdd;
+	border-color: #e1dfdd;
+}
+
+
+/* === OUTLINE === */
+.btn-outline-primary {
+	background-color: transparent;
+	color: var(--primary-color);
+	border: 2px solid var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+	background-color: var(--primary-color);
+	color: var(--white);
+}
+
+.btn-outline-info {
+	background-color: transparent;
+	color: var(--light-blue);
+	border: 2px solid var(--light-blue);
+}
+
+.btn-outline-info:hover {
+	background-color: var(--light-blue);
+	color: var(--white);
+}
+
+.btn-outline-danger {
+	background-color: transparent;
+	color: var(--danger-color);
+	border: 2px solid var(--danger-color);
+}
+
+.btn-outline-danger:hover {
+	background-color: var(--danger-color);
+	color: var(--white);
+}
+
+.btn-outline-warning {
+	background-color: transparent;
+	color: #b89200;
+	border: 2px solid var(--warning-color);
+}
+
+.btn-outline-warning:hover {
+	background-color: var(--warning-color);
+	color: var(--text-color);
+}
+
+.btn-outline-secondary {
+	background-color: transparent;
+	color: var(--text-muted-color);
+	border: 2px solid #c8c6c4;
+}
+
+.btn-outline-secondary:hover {
+	background-color: var(--secondary-color);
+	color: var(--text-color);
+}
+
+
+/* === BOTÕES PEQUENOS DE ÍCONE (32×32px) === */
+
+.btn-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	border-radius: 4px;
+	cursor: pointer;
+	border: 2px solid #f5f5f5;
+	transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-icon svg {
+	width: 14px;
+	height: 14px;
+	font-size: 14px;
+	flex-shrink: 0;
+}
+
+/* --- Filled --- */
+.btn-icon-primary {
+	background: var(--primary-color);
+	color: var(--white);
+	border-color: var(--primary-color);
+}
+
+.btn-icon-primary:hover {
+	background: var(--dark-blue);
+	border-color: var(--dark-blue);
+}
+
+.btn-icon-info {
+	background: var(--light-blue);
+	color: var(--white);
+	border-color: var(--light-blue);
+}
+
+.btn-icon-info:hover {
+	background: var(--primary-color);
+	border-color: var(--primary-color);
+}
+
+.btn-icon-danger {
+	background: var(--danger-color);
+	color: var(--white);
+	border-color: var(--danger-color);
+}
+
+.btn-icon-danger:hover {
+	background: #6b0404;
+	border-color: #6b0404;
+}
+
+.btn-icon-warning {
+	background: var(--warning-color);
+	color: var(--text-color);
+	border-color: var(--warning-color);
+}
+
+.btn-icon-warning:hover {
+	background: #d4ac00;
+	border-color: #d4ac00;
+}
+
+.btn-icon-secondary {
+	background: var(--secondary-color);
+	color: var(--text-color);
+	border-color: var(--secondary-color);
+}
+
+.btn-icon-secondary:hover {
+	background: #e1dfdd;
+	border-color: #e1dfdd;
+}
+
+/* --- Ghost --- */
+.btn-icon-ghost-primary {
+	background: transparent;
+	color: var(--primary-color);
+}
+
+.btn-icon-ghost-primary:hover {
+	background: #e6f2fb;
+}
+
+.btn-icon-ghost-info {
+	background: transparent;
+	color: var(--light-blue);
+}
+
+.btn-icon-ghost-info:hover {
+	background: #e1f0fd;
+}
+
+.btn-icon-ghost-danger {
+	background: transparent;
+	color: var(--danger-color);
+}
+
+.btn-icon-ghost-danger:hover {
+	background: #fce8e8;
+}
+
+.btn-icon-ghost-warning {
+	background: transparent;
+	color: #b89200;
+}
+
+.btn-icon-ghost-warning:hover {
+	background: #fef9e0;
 }

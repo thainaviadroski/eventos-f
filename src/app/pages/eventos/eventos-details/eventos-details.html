@@ -22,12 +22,7 @@
 			<p><b>Data de Emissão</b></p>
 		</div>
 		@for(certificado of certificados; track certificado.id) {
-		<div class="certificado">
-			<p>{{certificado.id}}</p>
-			<p>{{certificado.tipo}}</p>
-			<p>{{certificado.descricao}}</p>
-			<p>{{certificado.dtEmissao | date: 'dd/MM/yyyy'}}</p>
-		</div>
+		<app-certificado-itens-component [certificado]="certificado"></app-certificado-itens-component>
 		}
 	</div>
 </div>

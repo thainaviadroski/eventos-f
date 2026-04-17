@@ -1,0 +1,7 @@
+.certificado {
+	padding: 8px 16px;
+	display: grid;
+	grid-template-columns: 0.1fr 0.2fr 1fr 0.2fr 0.1fr 0.1fr;
+	gap: 16px;
+	border-bottom: 1px solid #ddd;
+}

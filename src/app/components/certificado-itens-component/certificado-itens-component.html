@@ -1,0 +1,14 @@
+<div class="certificado">
+	<p>{{certificado.id}}</p>
+	<p>{{certificado.tipo}}</p>
+	<p>{{certificado.descricao}}</p>
+	<p>{{certificado.dtEmissao | date: 'dd/MM/yyyy'}}</p>
+	<button class="btn-icon btn-icon-ghost-primary" matTooltip="Editar Certificado" [matTooltipShowDelay]=""
+		[matTooltipHideDelay]="">
+		<mat-icon>edit</mat-icon>
+	</button>
+	<button class="btn-icon btn-icon-ghost-danger" matTooltip="Excluir Certificado"
+		[matTooltipShowDelay]="toolTipOptions.showDelay" [matTooltipHideDelay]="toolTipOptions.hideDelay">
+		<mat-icon>delete</mat-icon>
+	</button>
+</div>

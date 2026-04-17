@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { MatIcon } from "@angular/material/icon";
 import { ActivatedRoute, Router } from '@angular/router';
 import { CertificadoService } from '../../../service/certificado/certificado-service';
+import { CertificadoItensComponent } from "../../../components/certificado-itens-component/certificado-itens-component";
 
 @Component({
 	selector: 'app-eventos-details',
-	imports: [DatePipe, MatIcon],
+	imports: [DatePipe, MatIcon, CertificadoItensComponent],
 	templateUrl: './eventos-details.html',
 	styleUrl: './eventos-details.css',
 })
