@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
-import { EventosService } from './service/eventos/eventos-service';
+import { EventosService } from './service/eventos/eventos.service';
 
 
 export const routes: Routes = [
@@ -22,7 +22,6 @@ export const routes: Routes = [
 			}
 		},
 		loadComponent: () => import('./pages/eventos/eventos-details/eventos-details').then(m => m.EventosDetails)
-
 		//Vamos adicionar o resolver aqui posteriormente para carregar os detalhes do evento antes de abrir a tela de detalhes
 	}
 ];

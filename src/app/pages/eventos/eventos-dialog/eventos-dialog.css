@@ -1,0 +1,13 @@
+.dialog-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.frm-content {
+	margin-top: 12px;
+}
+
+mat-form-field {
+	width: 100%;
+}

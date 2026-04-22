@@ -1,0 +1,38 @@
+<mat-dialog-content>
+	<div class="dialog-header">
+		<h3>Novo Evento</h3>
+		<button mat-icon-button mat-dialog-close>
+			<mat-icon>close</mat-icon>
+		</button>
+	</div>
+
+	<div class="frm-content">
+		<mat-form-field appearance="outline">
+			<mat-label>Evento:</mat-label>
+			<input matInput placeholder="Ex: Semana Acadêmica">
+		</mat-form-field>
+		<div style="display: flex; flex-direction: row; gap: 10px">
+			<mat-form-field appearance="outline">
+				<mat-label>Data de Início:</mat-label>
+				<input matInput [matDatepicker]="datepickerInicio" />
+				<mat-datepicker-toggle matIconSuffix [for]="datepickerInicio"></mat-datepicker-toggle>
+				<mat-datepicker #datepickerInicio></mat-datepicker>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Data de Fim:</mat-label>
+				<input matInput [matDatepicker]="datepickerFim" />
+				<mat-datepicker-toggle matIconSuffix [for]="datepickerFim"></mat-datepicker-toggle>
+				<mat-datepicker #datepickerFim></mat-datepicker>
+			</mat-form-field>
+		</div>
+		<mat-form-field appearance="outline">
+			<mat-label>Descrição:</mat-label>
+			<textarea matInput placeholder="Ex: Semana Acadêmica"></textarea>
+		</mat-form-field>
+	</div>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+	<button class="btn btn-outline-success"> <mat-icon>save</mat-icon> Salvar</button>
+</mat-dialog-actions>
