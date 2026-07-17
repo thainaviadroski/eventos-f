@@ -1,17 +1,20 @@
 <!-- Detalhes dos eventos  -->
 <div class="evento-header">
-	<h2> {{evento.id}} - {{evento.nome}} </h2>
-	<p>{{evento.descricao}}</p>
+	<h2> {{ evento.id }} - {{ evento.nome }} </h2>
+	<p>{{ evento.descricao }}</p>
 	<p>
-		<b>Data de Início:</b> {{evento.dtInicio | date: 'dd/MM/yyyy'}} - <b>Data de Fim:</b> {{evento.dtFim | date:
-		'dd/MM/yyyy'}}
+		<b>Data de Início:</b> {{ evento.dtInicio | date: 'dd/MM/yyyy' }} - <b>Data de Fim:</b> {{evento.dtFim |
+		date:'dd/MM/yyyy'}}
 	</p>
 
 </div>
 
 <div class="wrapper-certificados">
 	<div class="action">
-		<button type="button" role="button" class="btn btn-primary"> <mat-icon>add</mat-icon> Novo Certificado</button>
+		<button type="button" role="button" class="btn btn-primary" (click)="openModalNewCertificado()">
+			<mat-icon>add</mat-icon>
+			Novo Certificado
+		</button>
 	</div>
 
 	<div class="list-certificados">
@@ -21,10 +24,10 @@
 			<p>Descrição</p>
 			<p><b>Data de Emissão</b></p>
 		</div>
-		@for(certificado of certificados; track certificado.id) {
+		@for (certificado of certificados; track certificado.id) {
 		<app-certificado-itens-component [certificado]="certificado"></app-certificado-itens-component>
 		}
-		<mat-paginator [length]="totalElements" [pageSize]="size" [pageSizeOptions]="[5, 10, 25, 100]"
+		<mat-paginator [length]="totalElements" [pageSize]="size" [pageSizeOptions]="pageSizeOptions"
 			(page)="onPageChange($event)" aria-label="Selecionar página">
 		</mat-paginator>
 	</div>

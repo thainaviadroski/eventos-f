@@ -7,7 +7,9 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { EventosItensComponent } from '../../components/eventos-itens-component/eventos-itens-component';
 import { EventosService } from '../../service/eventos/eventos.service';
-import { EventosDialog } from './eventos-dialog/eventos-dialog';
+import { EventosDialog } from '../../components/eventos-dialog/eventos-dialog';
+
+import { PAGES_SIZE_OPTIONS } from '../../shared/utils/Constraints';
 
 @Component({
 	selector: 'app-eventos',
@@ -26,6 +28,8 @@ export class Eventos implements OnInit, OnDestroy {
 	size = 10;
 	eventos: any[] = [];
 	totalElements = 0;
+
+	readonly pageSizeOptions: number[] = PAGES_SIZE_OPTIONS;
 
 	private destroy$ = new Subject<void>();
 
