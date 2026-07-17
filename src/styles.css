@@ -330,3 +330,12 @@ body {
 textarea {
 	resize: none !important;
 }
+
+
+/* Styling of the Dialog in app  */
+
+.dialog-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
