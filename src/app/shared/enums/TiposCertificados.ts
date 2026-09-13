@@ -1,8 +1,8 @@
 export enum TiposCertificados {
-	PARTICIPANTE = "PARTICIPANTE",
-	ORGANIZADOR = "ORGANIZADOR",
-	PALESTRANTE = "PALESTRANTE",
-	COORDENADOR = "COORDENADOR",
+	PARTICIPANTE = "Participante",
+	ORGANIZADOR = "Organizador",
+	PALESTRANTE = "Palestrante",
+	COORDENADOR = "Coordenador",
 }
 
 export const TiposCertificadosInfo: Record<TiposCertificados, { name: string; description: string }> = {
@@ -29,3 +29,13 @@ export const getName = (tipo: TiposCertificados): string =>
 
 export const getDescription = (tipo: TiposCertificados): string =>
 	TiposCertificadosInfo[tipo].description;
+
+export const toTiposCertificados = (value: string | null | undefined): TiposCertificados | null => {
+	if (!value) {
+		return null;
+	}
+
+	return Object.values(TiposCertificados).find(
+		tipo => tipo.toLowerCase() === value.toLowerCase()
+	) ?? null;
+};

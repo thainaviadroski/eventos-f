@@ -1,14 +1,70 @@
-<mat-dialog-content>
-	<div class="dialog-header">
-		<h3>Criar um Certificado</h3>
-		<button mat-icon-button mat-dialog-close>
-			<mat-icon>close</mat-icon>
-		</button>
-	</div>
+<div class="dialog-header" mat-dialog-title>
+	<span>{{ isEdit ? 'Editar Certificado' : 'Novo Certificado' }}</span>
+	<button mat-icon-button mat-dialog-close aria-label="Fechar" [disabled]="saving">
+		<mat-icon>close</mat-icon>
+	</button>
+</div>
 
-	<div class="frm-content">
+<mat-dialog-content>
+	<form [formGroup]="form" class="frm-content">
+		<div class="frm-row">
+			<mat-form-field appearance="outline">
+				<mat-label>Tipo Certificado:</mat-label>
+				<mat-select formControlName="tipoCertifica" cdkFocusInitial>
+					@for (tipo of tipos; track tipo) {
+					<mat-option [value]="tipo">{{ tiposInfo[tipo].name }}</mat-option>
+					}
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="frm-row">
+			<mat-form-field appearance="outline">
+				<mat-label>Cabeçalho:</mat-label>
+				<input matInput placeholder="Ex: Certifico que:" formControlName="cabecalho">
+				@if (form.controls.cabecalho.invalid && form.controls.cabecalho.touched) {
+				<mat-error>Informe o cabeçalho do certificado.</mat-error>
+				}
+			</mat-form-field>
+		</div>
+
 		<mat-form-field appearance="outline">
-			<mat-label>Cabeçalho:</mat-label>
-			<input matInput placeholder="Ex: Certifico que:">
+			<mat-label>Corpo:</mat-label>
+			<textarea matInput formControlName="corpo" cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="8"
+				placeholder="Ex: Certificamos que o(a) participante concluiu o evento..."></textarea>
+			@if (form.controls.corpo.invalid && form.controls.corpo.touched) {
+			<mat-error>Informe o corpo do certificado.</mat-error>
+			}
 		</mat-form-field>
-	</div>
+
+		<mat-form-field appearance="outline">
+			<mat-label>Rodapé:</mat-label>
+			<input matInput placeholder="Ex: Coordenação do evento" formControlName="rodape">
+			@if (form.controls.rodape.invalid && form.controls.rodape.touched) {
+			<mat-error>Informe o rodapé do certificado.</mat-error>
+			}
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>Descrição</mat-label>
+			<textarea matInput formControlName="descricao" cdkTextareaAutosize cdkAutosizeMinRows="2"
+				cdkAutosizeMaxRows="6" placeholder="Descrição interna do certificado"></textarea>
+		</mat-form-field>
+
+		<app-file-dropzone label="Imagem de fundo" accept="image/*" hint="PNG ou JPG, até 5MB" [disabled]="saving"
+			(fileChange)="onImagemChange($event)"></app-file-dropzone>
+	</form>
+</mat-dialog-content>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close [disabled]="saving">Cancelar</button>
+	<button mat-flat-button color="primary" [disabled]="form.invalid || saving" (click)="salvar()">
+		@if (saving) {
+		<mat-progress-spinner diameter="18" mode="indeterminate"></mat-progress-spinner>
+		} @else {
+		<mat-icon>save</mat-icon>
+		}
+		Salvar
+	</button>
+</mat-dialog-actions>

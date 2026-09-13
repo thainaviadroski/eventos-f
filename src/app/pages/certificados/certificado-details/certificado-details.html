@@ -1,0 +1,182 @@
+<div class="certificado-header">
+	<h2>{{ certificado.cabecalho }}</h2>
+	<p><b>Tipo:</b> {{ tipoCertificaNome }}</p>
+	@if (certificado.descricao) {
+	<p>{{ certificado.descricao }}</p>
+	}
+</div>
+
+<div class="wrapper-import">
+	<div class="import-card">
+		<h3>Importar lista (CSV)</h3>
+		<p class="hint">Colunas esperadas: nome, cpf, email (opcional), ra (opcional), ch</p>
+
+		<app-file-dropzone class="file-dropzone" #csvDropzone label="Arquivo CSV" accept=".csv" hint="Arquivo .csv até 5MB"
+			[disabled]="importandoCsv" (fileChange)="onCsvSelected($event)"></app-file-dropzone>
+
+		@if (csvErro) {
+		<p class="erro">{{ csvErro }}</p>
+		}
+
+		<button mat-flat-button color="primary" [disabled]="!csvFile || importandoCsv" (click)="importarCsv()">
+			@if (importandoCsv) {
+			<mat-progress-spinner diameter="18" mode="indeterminate"></mat-progress-spinner>
+			} @else {
+			<mat-icon>upload</mat-icon>
+			}
+			Importar CSV
+		</button>
+	</div>
+
+	<div class="import-card">
+		<h3>Adicionar manualmente</h3>
+
+		<form [formGroup]="form" class="frm-manual">
+			<mat-form-field appearance="outline">
+				<mat-label>Nome:</mat-label>
+				<input matInput formControlName="nome">
+				@if (form.controls.nome.invalid && form.controls.nome.touched) {
+				<mat-error>Informe o nome.</mat-error>
+				}
+			</mat-form-field>
+
+			<div class="frm-row">
+				<mat-form-field appearance="outline">
+					<mat-label>CPF:</mat-label>
+					<input matInput formControlName="cpf">
+					@if (form.controls.cpf.invalid && form.controls.cpf.touched) {
+					<mat-error>Informe o CPF.</mat-error>
+					}
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>CH:</mat-label>
+					<input matInput type="number" formControlName="ch">
+					@if (form.controls.ch.invalid && form.controls.ch.touched) {
+					<mat-error>Informe a carga horária.</mat-error>
+					}
+				</mat-form-field>
+			</div>
+
+			<div class="frm-row">
+				<mat-form-field appearance="outline">
+					<mat-label>Email (opcional):</mat-label>
+					<input matInput type="email" formControlName="email">
+					@if (form.controls.email.invalid && form.controls.email.touched) {
+					<mat-error>Informe um email válido.</mat-error>
+					}
+				</mat-form-field>
+
+				<mat-form-field appearance="outline">
+					<mat-label>RA (opcional):</mat-label>
+					<input matInput formControlName="ra">
+				</mat-form-field>
+			</div>
+		</form>
+
+		<button mat-flat-button color="primary" [disabled]="form.invalid || salvandoManual"
+			(click)="adicionarManual()">
+			@if (salvandoManual) {
+			<mat-progress-spinner diameter="18" mode="indeterminate"></mat-progress-spinner>
+			} @else {
+			<mat-icon>add</mat-icon>
+			}
+			Adicionar
+		</button>
+	</div>
+</div>
+
+<div class="wrapper-imagens">
+	<div class="imagens-header">
+		<h3>Imagens do certificado</h3>
+		<button mat-stroked-button [disabled]="carregandoImagens" (click)="abrirPreview()">
+			<mat-icon>visibility</mat-icon>
+			Pré-visualizar certificado
+		</button>
+	</div>
+
+	<div class="imagens-grid">
+		<div class="imagem-card">
+			<h4>Imagem de fundo</h4>
+			<p class="hint">Usada como plano de fundo do certificado.</p>
+
+			@if (fundoServidorUrl && !fundoImagem) {
+			<img class="imagem-atual" [src]="fundoServidorUrl" alt="Imagem de fundo atual">
+			}
+
+			<app-file-dropzone #fundoDropzone label="Nova imagem de fundo" accept="image/*" hint="PNG ou JPG, até 5MB"
+				[disabled]="salvandoFundo" (fileChange)="onFundoSelected($event)"></app-file-dropzone>
+
+			@if (fundoErro) {
+			<p class="erro">{{ fundoErro }}</p>
+			}
+			@if (fundoSalvo) {
+			<p class="sucesso">Imagem de fundo atualizada com sucesso.</p>
+			}
+
+			<button mat-flat-button color="primary" [disabled]="!fundoImagem || !fundoImagemId || salvandoFundo"
+				(click)="salvarFundo()">
+				@if (salvandoFundo) {
+				<mat-progress-spinner diameter="18" mode="indeterminate"></mat-progress-spinner>
+				} @else {
+				<mat-icon>save</mat-icon>
+				}
+				Salvar novo fundo
+			</button>
+		</div>
+
+		<div class="imagem-card">
+			<h4>Imagem do verso</h4>
+			<p class="hint">Exibida no verso do certificado (opcional).</p>
+
+			@if (versoServidorUrl && !versoImagem) {
+			<img class="imagem-atual" [src]="versoServidorUrl" alt="Imagem do verso atual">
+			}
+
+			<app-file-dropzone #versoDropzone label="Nova imagem do verso" accept="image/*" hint="PNG ou JPG, até 5MB"
+				[disabled]="salvandoVerso" (fileChange)="onVersoSelected($event)"></app-file-dropzone>
+
+			@if (versoErro) {
+			<p class="erro">{{ versoErro }}</p>
+			}
+			@if (versoSalvo) {
+			<p class="sucesso">Imagem do verso enviada com sucesso.</p>
+			}
+
+			<button mat-flat-button color="primary" [disabled]="!versoImagem || salvandoVerso" (click)="salvarVerso()">
+				@if (salvandoVerso) {
+				<mat-progress-spinner diameter="18" mode="indeterminate"></mat-progress-spinner>
+				} @else {
+				<mat-icon>upload</mat-icon>
+				}
+				Salvar imagem do verso
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="wrapper-academicos">
+	<h3>Acadêmicos adicionados nesta sessão</h3>
+	<p class="hint">A API não expõe uma listagem dos acadêmicos já importados — esta lista reflete apenas o que foi
+		importado enquanto esta página está aberta.</p>
+
+	<div class="list-academicos">
+		<div class="academico-header">
+			<p>Nome</p>
+			<p>CH</p>
+			<p>Adicionado em</p>
+		</div>
+
+		@for (academico of academicos; track academico.id) {
+		<div class="academico-item">
+			<p>{{ academico.academico }}</p>
+			<p>{{ academico.ch }}</p>
+			<p>{{ academico.created | date: 'dd/MM/yyyy HH:mm' }}</p>
+		</div>
+		}
+
+		@if (academicos.length === 0) {
+		<p class="sem-academicos">Nenhum acadêmico importado ainda.</p>
+		}
+	</div>
+</div>

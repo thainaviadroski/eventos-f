@@ -1,10 +1,16 @@
 <div class="certificado">
 	<p>{{certificado.id}}</p>
-	<p>{{certificado.tipo}}</p>
+	<p>{{certificado.tipoCertifica}}</p>
 	<p>{{certificado.descricao}}</p>
-	<p>{{certificado.dtEmissao | date: 'dd/MM/yyyy'}}</p>
-	<button class="btn-icon btn-icon-ghost-primary" matTooltip="Editar Certificado" [matTooltipShowDelay]=""
-		[matTooltipHideDelay]="">
+	<p>{{certificado.created | date: 'dd/MM/yyyy HH:mm' }}</p>
+	<button class="btn-icon btn-icon-ghost-primary" matTooltip="Importar acadêmicos"
+		[matTooltipShowDelay]="toolTipOptions.showDelay" [matTooltipHideDelay]="toolTipOptions.hideDelay"
+		(click)="onView()">
+		<mat-icon>group_add</mat-icon>
+	</button>
+	<button class="btn-icon btn-icon-ghost-primary" matTooltip="Editar Certificado"
+		[matTooltipShowDelay]="toolTipOptions.showDelay" [matTooltipHideDelay]="toolTipOptions.hideDelay"
+		(click)="onEdit()">
 		<mat-icon>edit</mat-icon>
 	</button>
 	<button class="btn-icon btn-icon-ghost-danger" matTooltip="Excluir Certificado"
