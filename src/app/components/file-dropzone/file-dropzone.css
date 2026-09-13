@@ -1,0 +1,124 @@
+:host {
+	display: block;
+	margin: 4px 0 16px;
+}
+
+.frm-arquivo {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.dropzone-label {
+	font-size: 12px;
+	color: var(--text-muted-color);
+}
+
+.dropzone {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px dashed #a7a7a7a3;
+	border-radius: 8px;
+	padding: var(--file-dropzone-padding, 16px);
+	cursor: pointer;
+	transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.dropzone:hover,
+.dropzone:focus-visible {
+	border-color: var(--primary-color);
+	background-color: rgba(63, 81, 181, 0.04);
+	outline: none;
+}
+
+.dropzone-active {
+	border-color: var(--primary-color);
+	background-color: rgba(63, 81, 181, 0.08);
+}
+
+.dropzone-disabled {
+	cursor: not-allowed;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.dropzone-has-file {
+	cursor: default;
+	justify-content: flex-start;
+}
+
+.dropzone-placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 4px;
+	color: var(--text-muted-color);
+	pointer-events: none;
+}
+
+.dropzone-placeholder mat-icon {
+	opacity: 0.6;
+}
+
+.dropzone-link {
+	color: var(--primary-color);
+	text-decoration: underline;
+}
+
+.file-preview {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+}
+
+.file-preview img {
+	width: 48px;
+	height: 48px;
+	object-fit: cover;
+	border-radius: 4px;
+}
+
+.file-icon {
+	width: 48px;
+	height: 48px;
+	font-size: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-muted-color);
+	flex-shrink: 0;
+}
+
+.file-info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	overflow: hidden;
+}
+
+.file-nome {
+	font-size: 13px;
+	max-width: 260px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.file-tamanho {
+	font-size: 12px;
+	color: var(--text-muted-color);
+}
+
+.file-preview button {
+	margin-left: auto;
+}
+
+.file-erro {
+	margin: 0;
+	font-size: 12px;
+	color: var(--danger-color);
+}

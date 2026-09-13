@@ -1,0 +1,43 @@
+<div class="frm-arquivo">
+	@if (label) {
+	<span class="dropzone-label">{{ label }}</span>
+	}
+
+	<div class="dropzone" [class.dropzone-active]="isDragOver" [class.dropzone-has-file]="file"
+		[class.dropzone-disabled]="disabled" [attr.tabindex]="disabled ? -1 : 0" role="button"
+		[attr.aria-label]="label" (click)="fileInput.click()" (keydown.enter)="fileInput.click()"
+		(keydown.space)="fileInput.click()" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+		(drop)="onDrop($event)">
+
+		<input #fileInput type="file" [accept]="accept" hidden [disabled]="disabled"
+			(change)="onFileSelected($event)">
+
+		@if (file) {
+		<div class="file-preview">
+			@if (isImage && previewUrl) {
+			<img [src]="previewUrl" [alt]="file.name">
+			} @else {
+			<mat-icon class="file-icon">description</mat-icon>
+			}
+			<div class="file-info">
+				<span class="file-nome">{{ file.name }}</span>
+				<span class="file-tamanho">{{ tamanhoFormatado() }}</span>
+			</div>
+			<button type="button" mat-icon-button matTooltip="Remover arquivo" [disabled]="disabled"
+				(click)="remover(fileInput, $event)">
+				<mat-icon>close</mat-icon>
+			</button>
+		</div>
+		} @else {
+		<div class="dropzone-placeholder">
+			<mat-icon>cloud_upload</mat-icon>
+			<p>Arraste um arquivo aqui ou <span class="dropzone-link">clique para selecionar</span></p>
+			<small>{{ hint }}</small>
+		</div>
+		}
+	</div>
+
+	@if (erro) {
+	<p class="file-erro">{{ erro }}</p>
+	}
+</div>
