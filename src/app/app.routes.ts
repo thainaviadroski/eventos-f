@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { EventosService } from './service/eventos/eventos.service';
+import { CertificadoService } from './service/certificado/certificado.service';
 
 
 export const routes: Routes = [
@@ -23,5 +24,16 @@ export const routes: Routes = [
 		},
 		loadComponent: () => import('./pages/eventos/eventos-details/eventos-details').then(m => m.EventosDetails)
 		//Vamos adicionar o resolver aqui posteriormente para carregar os detalhes do evento antes de abrir a tela de detalhes
+	},
+	{
+		path: 'eventos/:eventoId/certificados/:certificadoId',
+		resolve: {
+			certificado: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+				const service = inject(CertificadoService);
+				const certificadoId = Number(route.paramMap.get('certificadoId'));
+				return service.find(certificadoId);
+			}
+		},
+		loadComponent: () => import('./pages/certificados/certificado-details/certificado-details').then(m => m.CertificadoDetails)
 	}
 ];
