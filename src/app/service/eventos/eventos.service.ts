@@ -1,32 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 
-export interface PaginationParams {
-	page?: number;
-	size?: number;
-	sort?: string;
-	direction?: 'asc' | 'desc';
-}
-
-export interface PageResponse<T> {
-	content: T[];
-	totalElements: number;
-	totalPages: number;
-	size: number;
-	number: number;
-	first: boolean;
-	last: boolean;
-	empty: boolean;
-}
-
-interface JsonServerPage<T> {
-	data: T[];
-	items: number;
-	pages: number;
-	next: number | null;
-	prev: number | 0 | null;
-}
+import { Evento, EventoPayload } from '../../models/evento.model';
+import { ApiPage, PageResponse, PaginationParams } from '../../models/pagination.model';
+import { buildPaginationParams, toPageResponse } from '../../shared/utils/pagination.util';
 
 @Injectable({
 	providedIn: 'root',
@@ -37,37 +15,27 @@ export class EventosService {
 
 	constructor(private http: HttpClient) { }
 
-	get(params: PaginationParams = {}): Observable<PageResponse<any>> {
-		const { page = 1, size = 10, sort, direction = 'asc' } = params;
+	get(params: PaginationParams = {}): Observable<PageResponse<Evento>> {
+		const httpParams = buildPaginationParams(params);
 
-		let httpParams = new HttpParams()
-			.set('_page', page.toString())
-			.set('_per_page', size.toString());
-
-		if (sort) {
-			httpParams = httpParams
-				.set('_sort', sort)
-				.set('_order', direction);
-		}
-
-		return this.http.get<JsonServerPage<any>>(this.url, { params: httpParams }).pipe(
-			map(body => {
-				console.log('Resposta bruta do servidor:', body);
-				return {
-					content: body.data ?? [],
-					totalElements: body.items ?? 0,
-					totalPages: body.pages ?? 0,
-					size,
-					number: page - 1,
-					first: body.prev === null,
-					last: body.next === null,
-					empty: body.data?.length === 0,
-				} as PageResponse<any>;
-			})
+		return this.http.get<ApiPage<Evento>>(this.url, { params: httpParams }).pipe(
+			map(body => toPageResponse(body, params))
 		);
 	}
 
-	find(id: number): Observable<any> {
-		return this.http.get(`${this.url}/${id}`);
+	find(id: number): Observable<Evento> {
+		return this.http.get<Evento>(`${this.url}/${id}`);
+	}
+
+	create(evento: EventoPayload): Observable<Evento> {
+		return this.http.post<Evento>(this.url, evento);
+	}
+
+	update(id: number, evento: EventoPayload): Observable<Evento> {
+		return this.http.put<Evento>(`${this.url}/${id}`, evento);
+	}
+
+	delete(id: number): Observable<void> {
+		return this.http.delete<void>(`${this.url}/${id}`);
 	}
 }

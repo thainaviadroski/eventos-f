@@ -1,9 +1,9 @@
 <!-- Detalhes dos eventos  -->
 <div class="evento-header">
-	<h2> {{ evento.id }} - {{ evento.nome }} </h2>
+	<h2> {{ evento.id }} - {{ evento.evento }} </h2>
 	<p>{{ evento.descricao }}</p>
 	<p>
-		<b>Data de Início:</b> {{ evento.dtInicio | date: 'dd/MM/yyyy' }} - <b>Data de Fim:</b> {{evento.dtFim |
+		<b>Data de Início:</b> {{ evento.dtInicio | date: 'dd/MM/yyyy' }} - <b>Data de Fim:</b> {{evento.dtFinal |
 		date:'dd/MM/yyyy'}}
 	</p>
 
@@ -22,10 +22,12 @@
 			<p>ID</p>
 			<p>Tipo</p>
 			<p>Descrição</p>
-			<p><b>Data de Emissão</b></p>
+			<p>Data de Emissão</p>
 		</div>
 		@for (certificado of certificados; track certificado.id) {
-		<app-certificado-itens-component [certificado]="certificado"></app-certificado-itens-component>
+		<app-certificado-itens-component [certificado]="certificado"
+			(editCertificado)="onEditCertificado(certificado)"
+			(viewCertificado)="onViewCertificado(certificado)"></app-certificado-itens-component>
 		}
 		<mat-paginator [length]="totalElements" [pageSize]="size" [pageSizeOptions]="pageSizeOptions"
 			(page)="onPageChange($event)" aria-label="Selecionar página">

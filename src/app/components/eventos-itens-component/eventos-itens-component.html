@@ -1,7 +1,7 @@
 <div class="evt-item">
 	<div class="evt-item-header">
 		<div>
-			<h3>{{ evento.nome }}</h3>
+			<h3>{{ evento.id + '-' + evento.evento }}</h3>
 			<p>{{ evento.descricao }}</p>
 		</div>
 		<div class="evt-actions">
@@ -17,6 +17,10 @@
 		</div>
 	</div>
 
-	<small><b>Data de Início:</b> {{ evento.dtInicio | date:'dd/MM/yyyy' }} | <b>Data de Fim:</b> {{
-		evento.dtFim | date:'dd/MM/yyyy' }}</small>
+	<small class="evt-item-footer">
+		<b>Data de Início:</b> {{ evento.dtInicio | date:'dd/MM/yyyy' }}
+		@if(evento.dtFim){
+		|<b>Data de Fim:</b> {{ evento.dtFim | date:'dd/MM/yyyy' }}
+		}
+	</small>
 </div>

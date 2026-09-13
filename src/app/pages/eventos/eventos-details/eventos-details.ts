@@ -6,7 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CertificadoItensComponent } from "../../../components/certificado-itens-component/certificado-itens-component";
 import { CertificadoService } from '../../../service/certificado/certificado.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CertificadoDialog } from '../../../components/certificado-dialog/certificado-dialog';
+import { CertificadoDialog, CertificadoDialogData } from '../../../components/certificado-dialog/certificado-dialog';
+import { Certificado } from '../../../models/certificado.model';
 import { PAGES_SIZE_OPTIONS } from '../../../shared/utils/Constraints';
 
 @Component({
@@ -18,7 +19,7 @@ import { PAGES_SIZE_OPTIONS } from '../../../shared/utils/Constraints';
 export class EventosDetails implements OnInit {
 
 	evento: any;
-	page = 1;
+	page = 0;
 	size = 5;
 	certificados: any[] = [];
 	totalElements = 0;
@@ -38,16 +39,33 @@ export class EventosDetails implements OnInit {
 	}
 
 	onPageChange(event: PageEvent): void {
-		this.page = event.pageIndex + 1;
+		this.page = event.pageIndex;
 		this.size = event.pageSize;
 		this.loadCertificados();
 	}
 
 	openModalNewCertificado() {
+		this.openCertificadoDialog({ eventoId: this.evento.id });
+	}
+
+	onEditCertificado(certificado: Certificado) {
+		this.openCertificadoDialog({ eventoId: this.evento.id, certificado });
+	}
+
+	onViewCertificado(certificado: Certificado) {
+		this.router.navigateByUrl(`eventos/${this.evento.id}/certificados/${certificado.id}`);
+	}
+
+	private openCertificadoDialog(data: CertificadoDialogData) {
 		this.dialog.open(CertificadoDialog, {
 			width: '100%',
 			maxWidth: '1000px',
-			height: '800px'
+			height: '80vh',
+			data,
+		}).afterClosed().subscribe(result => {
+			if (result) {
+				this.loadCertificados();
+			}
 		});
 	}
 
@@ -56,7 +74,6 @@ export class EventosDetails implements OnInit {
 			.subscribe((response) => {
 				this.certificados = response.content;
 				this.totalElements = response.totalElements;
-
 			});
 	}
 

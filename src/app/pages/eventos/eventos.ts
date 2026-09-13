@@ -24,7 +24,7 @@ export class Eventos implements OnInit, OnDestroy {
 
 	readonly dialog = inject(MatDialog);
 
-	page = 1;
+	page = 0;
 	size = 10;
 	eventos: any[] = [];
 	totalElements = 0;
@@ -46,14 +46,13 @@ export class Eventos implements OnInit, OnDestroy {
 		this.service.get({ page: this.page, size: this.size })
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(response => {
-				console.log(response);
 				this.eventos = response.content;
 				this.totalElements = response.totalElements;
 			});
 	}
 
 	onPageChange(event: PageEvent): void {
-		this.page = event.pageIndex + 1; // mat-paginator começa em 0, JSON Server em 1
+		this.page = event.pageIndex;
 		this.size = event.pageSize;
 		this.carregarEventos();
 	}
@@ -68,6 +67,10 @@ export class Eventos implements OnInit, OnDestroy {
 			width: '100%',
 			maxWidth: '1000px',
 			height: '500px'
+		}).afterClosed().subscribe(result => {
+			if (result) {
+				this.carregarEventos();
+			}
 		});
 	}
 }

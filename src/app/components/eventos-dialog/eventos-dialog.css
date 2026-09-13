@@ -1,4 +1,12 @@
 
+.dialog-header {
+	width: 100% !important;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .frm-content {
 	margin-top: 12px;
 }

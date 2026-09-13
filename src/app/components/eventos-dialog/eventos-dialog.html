@@ -1,38 +1,52 @@
 <mat-dialog-content>
 	<div class="dialog-header">
 		<h3>Novo Evento</h3>
-		<button mat-icon-button mat-dialog-close>
+		<button mat-icon-button mat-dialog-close aria-label="Fechar" [disabled]="saving">
 			<mat-icon>close</mat-icon>
 		</button>
 	</div>
 
-	<div class="frm-content">
+	<form [formGroup]="form" class="frm-content">
 		<mat-form-field appearance="outline">
 			<mat-label>Evento:</mat-label>
-			<input matInput placeholder="Ex: Semana Acadêmica">
+			<input matInput placeholder="Ex: Semana Acadêmica" formControlName="evento" cdkFocusInitial>
+			@if (form.controls.evento.invalid && form.controls.evento.touched) {
+			<mat-error>Informe o nome do evento.</mat-error>
+			}
 		</mat-form-field>
 		<div style="display: flex; flex-direction: row; gap: 10px">
 			<mat-form-field appearance="outline">
 				<mat-label>Data de Início:</mat-label>
-				<input matInput [matDatepicker]="datepickerInicio" />
+				<input matInput [matDatepicker]="datepickerInicio" formControlName="dtInicio" />
 				<mat-datepicker-toggle matIconSuffix [for]="datepickerInicio"></mat-datepicker-toggle>
 				<mat-datepicker #datepickerInicio></mat-datepicker>
+				@if (form.controls.dtInicio.invalid && form.controls.dtInicio.touched) {
+				<mat-error>Informe a data de início.</mat-error>
+				}
 			</mat-form-field>
 
 			<mat-form-field appearance="outline">
 				<mat-label>Data de Fim:</mat-label>
-				<input matInput [matDatepicker]="datepickerFim" />
+				<input matInput [matDatepicker]="datepickerFim" formControlName="dtFinal" />
 				<mat-datepicker-toggle matIconSuffix [for]="datepickerFim"></mat-datepicker-toggle>
 				<mat-datepicker #datepickerFim></mat-datepicker>
+				@if (form.controls.dtFinal.invalid && form.controls.dtFinal.touched) {
+				<mat-error>Informe a data de fim.</mat-error>
+				}
 			</mat-form-field>
 		</div>
 		<mat-form-field appearance="outline">
 			<mat-label>Descrição:</mat-label>
-			<textarea matInput placeholder="Ex: Semana Acadêmica"></textarea>
+			<textarea matInput placeholder="Ex: Semana Acadêmica" formControlName="descricao"></textarea>
+			@if (form.controls.descricao.invalid && form.controls.descricao.touched) {
+			<mat-error>Informe a descrição do evento.</mat-error>
+			}
 		</mat-form-field>
-	</div>
+	</form>
 
 </mat-dialog-content>
 <mat-dialog-actions>
-	<button class="btn btn-outline-success"> <mat-icon>save</mat-icon> Salvar</button>
+	<button class="btn btn-outline-success" [disabled]="form.invalid || saving" (click)="salvar()">
+		<mat-icon>save</mat-icon> {{ saving ? 'Salvando...' : 'Salvar' }}
+	</button>
 </mat-dialog-actions>
