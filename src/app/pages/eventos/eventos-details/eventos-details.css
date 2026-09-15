@@ -14,16 +14,12 @@ small {
 .wrapper-certificados {
 	display: flex;
 	flex-direction: column;
-
 	justify-content: center;
 	margin-top: 32px;
 	margin-bottom: 22px;
 	width: 100%;
 	max-width: 1200px;
 }
-
-
-
 
 .list-certificados {
 	flex: 1;
@@ -42,7 +38,12 @@ small {
 	font-weight: 600;
 	padding: 8px 16px;
 	display: grid;
-	grid-template-columns: 0.1fr 0.2fr 1fr 0.2fr 0.1fr 0.1fr;
+	grid-template-columns: 0.1fr 0.2fr 1fr 0.2fr 0.2fr ;
 	gap: 16px;
 	border-bottom: 1px solid #ddd;
+}
+
+.cert-header-actions {
+	grid-column: span 3;
+	text-align: center;
 }

@@ -23,6 +23,7 @@
 			<p>Tipo</p>
 			<p>Descrição</p>
 			<p>Data de Emissão</p>
+			<p class="cert-header-actions"></p>
 		</div>
 		@for (certificado of certificados; track certificado.id) {
 		<app-certificado-itens-component [certificado]="certificado"
