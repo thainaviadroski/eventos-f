@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
 import { EventosService } from './service/eventos/eventos.service';
 import { CertificadoService } from './service/certificado/certificado.service';
+import { AcademicoService } from './service/academico/academico.service';
 
 
 export const routes: Routes = [
@@ -35,5 +36,20 @@ export const routes: Routes = [
 			}
 		},
 		loadComponent: () => import('./pages/certificados/certificado-details/certificado-details').then(m => m.CertificadoDetails)
+	},
+	{
+		path: 'academicos',
+		loadComponent: () => import('./pages/academicos/academicos').then(m => m.Academicos)
+	},
+	{
+		path: 'academicos/:academicoId/detail',
+		resolve: {
+			academico: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+				const service = inject(AcademicoService);
+				const academicoId = Number(route.paramMap.get('academicoId'));
+				return service.find(academicoId);
+			}
+		},
+		loadComponent: () => import('./pages/academicos/academico-details/academico-details').then(m => m.AcademicoDetails)
 	}
 ];

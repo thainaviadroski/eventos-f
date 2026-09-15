@@ -1,0 +1,29 @@
+<div class="wrapper-action">
+	<h2>Acadêmicos:</h2>
+</div>
+
+<div class="wrapper-list">
+	@if(academicos.length !== 0) {
+	<h3>Acadêmicos Cadastrados:</h3>
+	<div class="list-academicos">
+		<div class="academico-header">
+			<p>Nome:</p>
+			<p>CPF:</p>
+			<p>E-mail:</p>
+			<p></p>
+		</div>
+		@for(academico of academicos; track academico.id) {
+		<app-academico-itens-component [academico]="academico" (viewDetail)="onDetail(academico.id)">
+		</app-academico-itens-component>
+		}
+	</div>
+	}
+
+	<mat-paginator [length]="totalElements" [pageSize]="size" [pageSizeOptions]="pageSizeOptions"
+		(page)="onPageChange($event)" aria-label="Selecionar página">
+	</mat-paginator>
+
+	@if(academicos.length === 0) {
+	<p>Sem acadêmicos cadastrados!</p>
+	}
+</div>

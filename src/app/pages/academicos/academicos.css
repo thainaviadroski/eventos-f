@@ -1,0 +1,42 @@
+h3 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.wrapper-action {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.wrapper-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 12px;
+	border-radius: 4px;
+	padding: 4px;
+}
+
+.list-academicos {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 1200px;
+	border-radius: 10px;
+	border: 1px solid var(--text-muted-color);
+	margin-bottom: 22px;
+	padding: 8px 16px;
+}
+
+.academico-header {
+	font-weight: 600;
+	padding: 8px 16px;
+	display: grid;
+	grid-template-columns: 1fr 0.3fr 1fr 0.1fr ;
+	gap: 16px;
+	border-bottom: 1px solid #ddd;
+}

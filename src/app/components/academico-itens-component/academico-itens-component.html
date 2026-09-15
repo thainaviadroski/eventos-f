@@ -1,0 +1,15 @@
+<div class="academico">
+	<p>
+		{{ academico.academico }}
+		@if(academico.ra){
+		<span><b>RA:</b> {{ academico.ra }}</span>
+		}
+	</p>
+	<p>{{ academico.cpf }}</p>
+	<p>{{ academico.email }}</p>
+	<button class="btn-icon btn-icon-ghost-primary" matTooltip="Ver detalhes"
+		[matTooltipShowDelay]="toolTipOptions.showDelay" [matTooltipHideDelay]="toolTipOptions.hideDelay"
+		(click)="onDetail()">
+		<mat-icon>visibility</mat-icon>
+	</button>
+</div>
