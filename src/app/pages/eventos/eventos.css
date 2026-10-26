@@ -10,6 +10,11 @@ h3 {
 	margin-bottom: 10px;
 }
 
+.busca {
+	width: 100%;
+	margin-bottom: 4px;
+}
+
 .wrapper-list {
 	display: flex;
 	flex-direction: column;

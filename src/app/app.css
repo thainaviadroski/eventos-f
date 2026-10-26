@@ -1,5 +1,14 @@
+/* Mantém o footer sempre no fim da página: o conteúdo cresce para ocupar o espaço livre */
+:host {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	min-height: 100dvh;
+}
+
 .container {
-	margin: auto;
+	flex: 1;
+	margin: 0 auto;
 	width: 100%;
 	max-width: 1200px;
 }

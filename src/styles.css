@@ -1,19 +1,69 @@
 /* You can add global styles to this file, and also import other style files */
 
+/*
+ * Cada token define o valor do tema claro e do escuro com light-dark().
+ * O tema ativo é escolhido pelo color-scheme do <html> (ver custom-theme.scss e ThemeService).
+ */
 :root {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	--primary-color: #0078d4;
-	--secondary-color: #f3f2f1;
-	--success-color: #107c10;
-	--warning-color: #f7cc0e;
-	--danger-color: #a80000;
-	--text-color: #323130;
-	--text-muted-color: #605e5c;
-	--white: #ffffff;
 
-	--dark-blue: #0238ad;
-	--light-blue: #108bf0;
+	/* === Paleta base === */
+	--navy-950: #00072d;
+	--blue-600: #0e6ba8;
+	--sky-200: #a6e1fa;
 
+	/* === Superfícies e texto === */
+	/* No escuro as superfícies usam azul-ardósia dessaturado, mais suave que o navy da paleta */
+	--background-color: light-dark(#f4f8fc, #0f1729);
+	--surface-color: light-dark(#ffffff, #17223a);
+	--surface-muted-color: light-dark(#eaf1f8, #1f2c47);
+	--border-color: light-dark(#d5e0eb, #2a3a58);
+	--outline-color: light-dark(#7a8aa3, #5f7190);
+	--text-color: light-dark(var(--navy-950), #dbe5f1);
+	--text-muted-color: light-dark(#4a5b78, #94a3bb);
+	--shadow-color: light-dark(rgba(0, 28, 85, 0.12), rgba(0, 0, 0, 0.35));
+	--focus-ring-color: light-dark(var(--blue-600), var(--sky-200));
+	--selection-color: light-dark(var(--sky-200), var(--blue-600));
+
+	/* === Cores de ação === */
+	--primary-color: light-dark(var(--blue-600), var(--sky-200));
+	--primary-hover-color: light-dark(#0b5689, #c3ebfc);
+	--on-primary-color: light-dark(#ffffff, var(--navy-950));
+
+	/* No escuro o info inverte com o primary, para "ver" e "editar" continuarem distintos */
+	--info-color: light-dark(var(--sky-200), var(--blue-600));
+	--info-hover-color: light-dark(#8dd6f7, #1676b8);
+	--info-text-color: light-dark(var(--blue-600), #7dbde2);
+	--on-info-color: light-dark(var(--navy-950), #ffffff);
+
+	--secondary-color: light-dark(#e3ebf4, #24324d);
+	--secondary-hover-color: light-dark(#d2deeb, #2d3d5c);
+	--on-secondary-color: light-dark(var(--navy-950), #dbe5f1);
+
+	--success-color: light-dark(#0f7a53, #6bc8a0);
+	--success-hover-color: light-dark(#0c6646, #8ad6b5);
+	--on-success-color: light-dark(#ffffff, #0b2a1e);
+
+	--warning-color: light-dark(#f2b632, #e9c46a);
+	--warning-hover-color: light-dark(#e0a41c, #f0d189);
+	--warning-text-color: light-dark(#8a5d00, #e9c46a);
+	--on-warning-color: var(--navy-950);
+
+	--danger-color: light-dark(#c0303f, #f0939c);
+	--danger-hover-color: light-dark(#a32635, #f5aeb4);
+	--on-danger-color: light-dark(#ffffff, #3a0d12);
+
+	/* === Layout === */
+	--navbar-color: light-dark(var(--navy-950), #141e34);
+	--navbar-hover-color: rgba(166, 225, 250, 0.12);
+	--navbar-active-color: var(--sky-200);
+	--on-navbar-color: #ffffff;
+	--footer-color: light-dark(var(--navy-950), #141e34);
+	--on-footer-color: var(--sky-200);
+}
+
+::selection {
+	background-color: var(--selection-color);
 }
 
 * {
@@ -49,77 +99,91 @@ body {
 	text-align: center;
 	text-decoration: none;
 	border-radius: 20px;
-	transition: background-color 0.3s ease, color 0.3s ease;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 	border: none;
 	cursor: pointer;
-	box-shadow: 0 0px 4px rgba(0, 0, 0, 0.45);
+	box-shadow: 0 1px 3px var(--shadow-color);
+}
+
+/* === ESTADOS COMUNS (.btn e .btn-icon) === */
+.btn:focus-visible,
+.btn-icon:focus-visible {
+	outline: 2px solid var(--focus-ring-color);
+	outline-offset: 2px;
+}
+
+.btn:disabled,
+.btn-icon:disabled {
+	opacity: 0.5;
+	box-shadow: none;
+	pointer-events: none;
 }
 
 /* === FILLED (preenchimento) === */
 .btn-primary {
 	background-color: var(--primary-color);
-	color: var(--white);
+	color: var(--on-primary-color);
 	border: 2px solid var(--primary-color);
 }
 
 .btn-primary:hover {
-	background-color: var(--dark-blue);
-	border-color: var(--dark-blue);
+	background-color: var(--primary-hover-color);
+	border-color: var(--primary-hover-color);
 }
 
 .btn-info {
-	background-color: var(--light-blue);
-	color: var(--white);
-	border: 2px solid var(--light-blue);
+	background-color: var(--info-color);
+	color: var(--on-info-color);
+	border: 2px solid var(--info-color);
 }
 
 .btn-info:hover {
-	background-color: var(--primary-color);
-	border-color: var(--primary-color);
+	background-color: var(--info-hover-color);
+	border-color: var(--info-hover-color);
 }
 
 .btn-danger {
 	background-color: var(--danger-color);
-	color: var(--white);
+	color: var(--on-danger-color);
 	border: 2px solid var(--danger-color);
 }
 
 .btn-danger:hover {
-	background-color: #6b0404;
-	border-color: #6b0404;
+	background-color: var(--danger-hover-color);
+	border-color: var(--danger-hover-color);
 }
 
 .btn-warning {
 	background-color: var(--warning-color);
-	color: var(--text-color);
+	color: var(--on-warning-color);
 	border: 2px solid var(--warning-color);
 }
 
 .btn-warning:hover {
-	background-color: #d4ac00;
-	border-color: #d4ac00;
+	background-color: var(--warning-hover-color);
+	border-color: var(--warning-hover-color);
 }
 
 .btn-success {
 	background-color: var(--success-color);
-	color: var(--white);
+	color: var(--on-success-color);
 	border: 2px solid var(--success-color);
 }
 
 .btn-success:hover {
-	background-color: #0b5a0b;
-	border-color: #0b5a0b;
+	background-color: var(--success-hover-color);
+	border-color: var(--success-hover-color);
 }
 
 .btn-secondary {
 	background-color: var(--secondary-color);
-	color: var(--text-color);
+	color: var(--on-secondary-color);
 	border: 2px solid var(--secondary-color);
 }
 
 .btn-secondary:hover {
-	background-color: #e1dfdd;
-	border-color: #e1dfdd;
+	background-color: var(--secondary-hover-color);
+	border-color: var(--secondary-hover-color);
 }
 
 
@@ -132,18 +196,18 @@ body {
 
 .btn-outline-primary:hover {
 	background-color: var(--primary-color);
-	color: var(--white);
+	color: var(--on-primary-color);
 }
 
 .btn-outline-info {
 	background-color: transparent;
-	color: var(--light-blue);
-	border: 2px solid var(--light-blue);
+	color: var(--info-text-color);
+	border: 2px solid var(--info-color);
 }
 
 .btn-outline-info:hover {
-	background-color: var(--light-blue);
-	color: var(--white);
+	background-color: var(--info-color);
+	color: var(--on-info-color);
 }
 
 .btn-outline-danger {
@@ -154,29 +218,29 @@ body {
 
 .btn-outline-danger:hover {
 	background-color: var(--danger-color);
-	color: var(--white);
+	color: var(--on-danger-color);
 }
 
 .btn-outline-warning {
 	background-color: transparent;
-	color: #b89200;
+	color: var(--warning-text-color);
 	border: 2px solid var(--warning-color);
 }
 
 .btn-outline-warning:hover {
 	background-color: var(--warning-color);
-	color: var(--text-color);
+	color: var(--on-warning-color);
 }
 
 .btn-outline-secondary {
 	background-color: transparent;
 	color: var(--text-muted-color);
-	border: 2px solid #c8c6c4;
+	border: 2px solid var(--outline-color);
 }
 
 .btn-outline-secondary:hover {
 	background-color: var(--secondary-color);
-	color: var(--text-color);
+	color: var(--on-secondary-color);
 }
 
 .btn-outline-success {
@@ -187,7 +251,7 @@ body {
 
 .btn-outline-success:hover {
 	background-color: var(--success-color);
-	color: var(--white);
+	color: var(--on-success-color);
 }
 
 
@@ -202,7 +266,7 @@ body {
 	padding: 0;
 	border-radius: 8px;
 	cursor: pointer;
-	border: 2px solid #f5f5f5;
+	border: 2px solid transparent;
 	transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
@@ -216,68 +280,68 @@ body {
 /* --- Filled --- */
 .btn-icon-primary {
 	background: var(--primary-color);
-	color: var(--white);
+	color: var(--on-primary-color);
 	border-color: var(--primary-color);
 }
 
 .btn-icon-primary:hover {
-	background: var(--dark-blue);
-	border-color: var(--dark-blue);
+	background: var(--primary-hover-color);
+	border-color: var(--primary-hover-color);
 }
 
 .btn-icon-info {
-	background: var(--light-blue);
-	color: var(--white);
-	border-color: var(--light-blue);
+	background: var(--info-color);
+	color: var(--on-info-color);
+	border-color: var(--info-color);
 }
 
 .btn-icon-info:hover {
-	background: var(--primary-color);
-	border-color: var(--primary-color);
+	background: var(--info-hover-color);
+	border-color: var(--info-hover-color);
 }
 
 .btn-icon-danger {
 	background: var(--danger-color);
-	color: var(--white);
+	color: var(--on-danger-color);
 	border-color: var(--danger-color);
 }
 
 .btn-icon-danger:hover {
-	background: #6b0404;
-	border-color: #6b0404;
+	background: var(--danger-hover-color);
+	border-color: var(--danger-hover-color);
 }
 
 .btn-icon-warning {
 	background: var(--warning-color);
-	color: var(--text-color);
+	color: var(--on-warning-color);
 	border-color: var(--warning-color);
 }
 
 .btn-icon-warning:hover {
-	background: #d4ac00;
-	border-color: #d4ac00;
+	background: var(--warning-hover-color);
+	border-color: var(--warning-hover-color);
 }
 
 .btn-icon-secondary {
 	background: var(--secondary-color);
-	color: var(--text-color);
+	color: var(--on-secondary-color);
 	border-color: var(--secondary-color);
 }
 
 .btn-icon-secondary:hover {
-	background: #e1dfdd;
-	border-color: #e1dfdd;
+	background: var(--secondary-hover-color);
+	border-color: var(--secondary-hover-color);
 }
 
 .btn-icon-success {
 	background: var(--success-color);
-	color: var(--white);
+	color: var(--on-success-color);
 	border-color: var(--success-color);
 }
 
 .btn-icon-success:hover {
-	background: #0b5a0b;
-	border-color: #0b5a0b;
+	background: var(--success-hover-color);
+	border-color: var(--success-hover-color);
 }
 
 /* --- Ghost --- */
@@ -287,16 +351,16 @@ body {
 }
 
 .btn-icon-ghost-primary:hover {
-	background: #e6f2fb;
+	background: color-mix(in srgb, var(--primary-color) 12%, transparent);
 }
 
 .btn-icon-ghost-info {
 	background: transparent;
-	color: var(--light-blue);
+	color: var(--info-text-color);
 }
 
 .btn-icon-ghost-info:hover {
-	background: #e1f0fd;
+	background: color-mix(in srgb, var(--info-text-color) 12%, transparent);
 }
 
 .btn-icon-ghost-danger {
@@ -305,16 +369,16 @@ body {
 }
 
 .btn-icon-ghost-danger:hover {
-	background: #fce8e8;
+	background: color-mix(in srgb, var(--danger-color) 12%, transparent);
 }
 
 .btn-icon-ghost-warning {
 	background: transparent;
-	color: #b89200;
+	color: var(--warning-text-color);
 }
 
 .btn-icon-ghost-warning:hover {
-	background: #fef9e0;
+	background: color-mix(in srgb, var(--warning-color) 20%, transparent);
 }
 
 .btn-icon-ghost-success {
@@ -323,7 +387,7 @@ body {
 }
 
 .btn-icon-ghost-success:hover {
-	background: #e8f5e8;
+	background: color-mix(in srgb, var(--success-color) 12%, transparent);
 }
 
 

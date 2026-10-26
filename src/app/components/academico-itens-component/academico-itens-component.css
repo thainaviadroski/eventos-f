@@ -4,7 +4,12 @@
 	grid-template-columns: 1fr 0.3fr 1fr 0.1fr ;
 	align-items: center;
 	gap: 16px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid var(--border-color);
+	transition: background-color 0.15s ease;
+}
+
+.academico:hover {
+	background-color: color-mix(in srgb, var(--primary-color) 6%, transparent);
 }
 
 .academico:last-child {

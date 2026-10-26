@@ -5,7 +5,7 @@
 .certificado-header h2 {
 	padding: 4px 0px;
 	font-weight: 500;
-	border-bottom: 1px solid var(--text-muted-color);
+	border-bottom: 1px solid var(--border-color);
 }
 
 .certificado-header p {
@@ -24,7 +24,9 @@
 .import-card {
 	flex: 1;
 	min-width: 280px;
-	border: 1px solid var(--text-muted-color);
+	border: 1px solid var(--border-color);
+	background-color: var(--surface-color);
+	box-shadow: 0 1px 3px var(--shadow-color);
 	border-radius: 10px;
 	padding: 16px;
 	display: flex;
@@ -102,7 +104,9 @@
 .imagem-card {
 	flex: 1;
 	min-width: 280px;
-	border: 1px solid var(--text-muted-color);
+	border: 1px solid var(--border-color);
+	background-color: var(--surface-color);
+	box-shadow: 0 1px 3px var(--shadow-color);
 	border-radius: 10px;
 	padding: 16px;
 	display: flex;
@@ -130,8 +134,8 @@
 	max-height: 160px;
 	object-fit: contain;
 	border-radius: 8px;
-	border: 1px solid var(--text-muted-color);
-	background-color: #f5f5f0;
+	border: 1px solid var(--border-color);
+	background-color: var(--surface-muted-color);
 }
 
 .sucesso {
@@ -156,7 +160,9 @@
 
 .list-academicos {
 	border-radius: 10px;
-	border: 1px solid var(--text-muted-color);
+	border: 1px solid var(--border-color);
+	background-color: var(--surface-color);
+	box-shadow: 0 1px 3px var(--shadow-color);
 	margin-top: 8px;
 	padding: 8px 16px;
 }
@@ -167,7 +173,7 @@
 	display: grid;
 	grid-template-columns: 1fr 0.3fr 0.5fr;
 	gap: 16px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid var(--border-color);
 }
 
 .academico-item {
@@ -175,7 +181,7 @@
 	display: grid;
 	grid-template-columns: 1fr 0.3fr 0.5fr;
 	gap: 16px;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 1px solid var(--border-color);
 }
 
 .sem-academicos {

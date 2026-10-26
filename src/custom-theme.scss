@@ -7,6 +7,10 @@
 @use '@angular/material' as mat;
 
 html {
+  // O tema claro é o padrão. A classe `dark-theme` (aplicada pelo ThemeService) troca para o escuro.
+  // O Material e os tokens de styles.css usam light-dark(), então basta trocar o color-scheme.
+  color-scheme: light;
+
   @include mat.theme((
     color: (
       primary: mat.$azure-palette,
@@ -15,14 +19,43 @@ html {
     typography: Roboto,
     density: 0,
   ));
+
+  // Liga os papéis de cor do Material aos tokens da paleta do projeto (styles.css),
+  // para que botões, diálogos, campos e paginação usem as mesmas cores do resto da aplicação.
+  @include mat.theme-overrides((
+    primary: var(--primary-color),
+    on-primary: var(--on-primary-color),
+    secondary-container: var(--secondary-color),
+    on-secondary-container: var(--on-secondary-color),
+    error: var(--danger-color),
+    on-error: var(--on-danger-color),
+    background: var(--background-color),
+    on-background: var(--text-color),
+    surface: var(--background-color),
+    on-surface: var(--text-color),
+    on-surface-variant: var(--text-muted-color),
+    surface-variant: var(--surface-muted-color),
+    surface-container-low: var(--surface-color),
+    surface-container: var(--surface-color),
+    surface-container-high: var(--surface-color),
+    surface-container-highest: var(--surface-muted-color),
+    outline: var(--outline-color),
+    outline-variant: var(--border-color),
+    inverse-surface: var(--text-color),
+    inverse-on-surface: var(--background-color),
+  ));
+
+  // O paginador fica dentro de cards (ex.: lista de certificados), então herda o fundo deles
+  @include mat.paginator-overrides((
+    container-background-color: transparent,
+  ));
+}
+
+html.dark-theme {
+  color-scheme: dark;
 }
 
 body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
   // Set a default background, font and text colors for the application using
   // Angular Material's system-level CSS variables. Learn more about these
   // variables at https://material.angular.dev/guide/system-variables
