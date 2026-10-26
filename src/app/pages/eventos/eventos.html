@@ -5,6 +5,17 @@
 	</button>
 </div>
 
+<mat-form-field class="busca" appearance="outline" subscriptSizing="dynamic">
+	<mat-icon matPrefix>search</mat-icon>
+	<mat-label>Buscar eventos</mat-label>
+	<input matInput [formControl]="busca" placeholder="Ex: Semana Acadêmica">
+	@if (busca.value) {
+	<button matSuffix mat-icon-button aria-label="Limpar busca" (click)="limparBusca()">
+		<mat-icon>close</mat-icon>
+	</button>
+	}
+</mat-form-field>
+
 <div class="wrapper-list">
 	@if(eventos.length !== 0) {
 	<h3>Eventos Cadastrados:</h3>
@@ -16,11 +27,15 @@
 	</div>
 	}
 
-	<mat-paginator [length]="totalElements" [pageSize]="size" [pageSizeOptions]="pageSizeOptions"
+	<mat-paginator [length]="totalElements" [pageIndex]="page" [pageSize]="size" [pageSizeOptions]="pageSizeOptions"
 		(page)="onPageChange($event)" aria-label="Selecionar página">
 	</mat-paginator>
 
 	@if(eventos.length === 0) {
-	<p>Sem eventos cadastrados!</p>
+		@if (termo) {
+		<p>Nenhum evento encontrado para "{{ termo }}".</p>
+		} @else {
+		<p>Sem eventos cadastrados!</p>
+		}
 	}
 </div>

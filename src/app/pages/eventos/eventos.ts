@@ -1,10 +1,13 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { debounceTime, filter, map, Subject, Subscription, takeUntil } from 'rxjs';
 import { EventosItensComponent } from '../../components/eventos-itens-component/eventos-itens-component';
 import { EventosService } from '../../service/eventos/eventos.service';
 import { EventosDialog } from '../../components/eventos-dialog/eventos-dialog';
@@ -13,7 +16,15 @@ import { PAGES_SIZE_OPTIONS } from '../../shared/utils/Constraints';
 
 @Component({
 	selector: 'app-eventos',
-	imports: [MatIconModule, MatButtonModule, EventosItensComponent, MatPaginatorModule],
+	imports: [
+		ReactiveFormsModule,
+		MatIconModule,
+		MatButtonModule,
+		MatFormFieldModule,
+		MatInputModule,
+		EventosItensComponent,
+		MatPaginatorModule,
+	],
 	templateUrl: './eventos.html',
 	styleUrl: './eventos.css',
 })
@@ -31,9 +42,26 @@ export class Eventos implements OnInit, OnDestroy {
 
 	readonly pageSizeOptions: number[] = PAGES_SIZE_OPTIONS;
 
+	readonly busca = new FormControl('', { nonNullable: true });
+	termo = '';
+
+	private carregamento?: Subscription;
 	private destroy$ = new Subject<void>();
 
 	ngOnInit(): void {
+		this.busca.valueChanges
+			.pipe(
+				map(valor => valor.trim()),
+				debounceTime(300),
+				filter(termo => termo !== this.termo),
+				takeUntil(this.destroy$)
+			)
+			.subscribe(termo => {
+				this.termo = termo;
+				this.page = 0;
+				this.carregarEventos();
+			});
+
 		this.carregarEventos();
 	}
 
@@ -43,12 +71,21 @@ export class Eventos implements OnInit, OnDestroy {
 	}
 
 	carregarEventos(): void {
-		this.service.get({ page: this.page, size: this.size })
+		const params = { page: this.page, size: this.size };
+		const request$ = this.termo ? this.service.search(this.termo, params) : this.service.get(params);
+
+		// Cancela a requisição anterior para uma resposta atrasada não sobrescrever a busca atual
+		this.carregamento?.unsubscribe();
+		this.carregamento = request$
 			.pipe(takeUntil(this.destroy$))
 			.subscribe(response => {
 				this.eventos = response.content;
 				this.totalElements = response.totalElements;
 			});
+	}
+
+	limparBusca(): void {
+		this.busca.setValue('');
 	}
 
 	onPageChange(event: PageEvent): void {

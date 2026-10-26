@@ -23,6 +23,14 @@ export class EventosService {
 		);
 	}
 
+	search(q: string, params: PaginationParams = {}): Observable<PageResponse<Evento>> {
+		const httpParams = buildPaginationParams(params).set('q', q);
+
+		return this.http.get<ApiPage<Evento>>(`${this.url}/search`, { params: httpParams }).pipe(
+			map(body => toPageResponse(body, params))
+		);
+	}
+
 	find(id: number): Observable<Evento> {
 		return this.http.get<Evento>(`${this.url}/${id}`);
 	}
