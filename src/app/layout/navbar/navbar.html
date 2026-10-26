@@ -5,9 +5,16 @@
   </div>
 
   <div class="links-bar">
-    <a class="link" [routerLink]="['/']">Home</a>
-    <a class="link" [routerLink]="['/eventos']">Eventos</a>
-    <a class="link" [routerLink]="['/academicos']">Acadêmicos</a>
+    <a class="link" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a class="link" [routerLink]="['/eventos']" routerLinkActive="active">Eventos</a>
+    <a class="link" [routerLink]="['/academicos']" routerLinkActive="active">Acadêmicos</a>
+
+    <div class="theme-switch">
+      <mat-icon aria-hidden="true" [class.active]="!theme.isDark()">light_mode</mat-icon>
+      <mat-slide-toggle hideIcon [checked]="theme.isDark()" (change)="theme.toggle()"
+        aria-label="Modo escuro"></mat-slide-toggle>
+      <mat-icon aria-hidden="true" [class.active]="theme.isDark()">dark_mode</mat-icon>
+    </div>
   </div>
 
 </nav>
