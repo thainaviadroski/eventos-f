@@ -2,6 +2,17 @@
 	<h2>Acadêmicos:</h2>
 </div>
 
+<mat-form-field class="busca" appearance="outline" subscriptSizing="dynamic">
+	<mat-icon matPrefix>search</mat-icon>
+	<mat-label>Buscar por nome, CPF ou RA</mat-label>
+	<input matInput [formControl]="busca" placeholder="Ex: Maria Silva, 123.456.789-00 ou 20.23001">
+	@if (busca.value) {
+	<button matSuffix mat-icon-button aria-label="Limpar busca" (click)="limparBusca()">
+		<mat-icon>close</mat-icon>
+	</button>
+	}
+</mat-form-field>
+
 <div class="wrapper-list">
 	@if(academicos.length !== 0) {
 	<h3>Acadêmicos Cadastrados:</h3>
@@ -19,11 +30,15 @@
 	</div>
 	}
 
-	<mat-paginator [length]="totalElements" [pageSize]="size" [pageSizeOptions]="pageSizeOptions"
+	<mat-paginator [length]="totalElements" [pageIndex]="page" [pageSize]="size" [pageSizeOptions]="pageSizeOptions"
 		(page)="onPageChange($event)" aria-label="Selecionar página">
 	</mat-paginator>
 
 	@if(academicos.length === 0) {
-	<p>Sem acadêmicos cadastrados!</p>
+		@if (termo) {
+		<p>Nenhum acadêmico encontrado para "{{ termo }}".</p>
+		} @else {
+		<p>Sem acadêmicos cadastrados!</p>
+		}
 	}
 </div>

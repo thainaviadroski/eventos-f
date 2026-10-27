@@ -22,6 +22,14 @@ export class AcademicoService {
 		);
 	}
 
+	search(q: string, params: PaginationParams = {}): Observable<PageResponse<Academico>> {
+		const httpParams = buildPaginationParams(params).set('q', q);
+
+		return this.http.get<ApiPage<Academico>>(`${this.url}/search`, { params: httpParams }).pipe(
+			map(body => toPageResponse(body, params))
+		);
+	}
+
 	find(id: number): Observable<Academico> {
 		return this.http.get<Academico>(`${this.url}/${id}`);
 	}
