@@ -9,10 +9,11 @@
 <div class="wrapper-import">
 	<div class="import-card">
 		<h3>Importar lista (CSV)</h3>
-		<p class="hint">Colunas esperadas: nome, cpf, email (opcional), ra (opcional), ch</p>
+		<p class="hint">Colunas esperadas: academico, email (opcional), cpf, ra (opcional), ch</p>
 
-		<app-file-dropzone class="file-dropzone" #csvDropzone label="Arquivo CSV" accept=".csv" hint="Arquivo .csv até 5MB"
-			[disabled]="importandoCsv" (fileChange)="onCsvSelected($event)"></app-file-dropzone>
+		<app-file-dropzone class="file-dropzone" #csvDropzone label="Arquivo CSV" accept=".csv"
+			hint="Arquivo .csv até 5MB" [disabled]="importandoCsv"
+			(fileChange)="onCsvSelected($event)"></app-file-dropzone>
 
 		@if (csvErro) {
 		<p class="erro">{{ csvErro }}</p>
@@ -26,6 +27,7 @@
 			}
 			Importar CSV
 		</button>
+		<a href="" mat-flat-button color="primary"><mat-icon>download</mat-icon> Baixar modelos</a>
 	</div>
 
 	<div class="import-card">
@@ -74,8 +76,7 @@
 			</div>
 		</form>
 
-		<button mat-flat-button color="primary" [disabled]="form.invalid || salvandoManual"
-			(click)="adicionarManual()">
+		<button mat-flat-button color="primary" [disabled]="form.invalid || salvandoManual" (click)="adicionarManual()">
 			@if (salvandoManual) {
 			<mat-progress-spinner diameter="18" mode="indeterminate"></mat-progress-spinner>
 			} @else {
