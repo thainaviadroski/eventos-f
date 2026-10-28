@@ -18,3 +18,42 @@
 		<p>{{ academico.ra }}</p>
 	</div>
 </div>
+
+<div class="wrapper-certificados">
+	<h3>Certificados:</h3>
+
+	<div class="list-certificados">
+		@if (certificados.length !== 0) {
+		<div class="cert-header">
+			<p>ID</p>
+			<p>Tipo</p>
+			<p>Descrição</p>
+			<p>C.H.</p>
+			<p>Data de Emissão</p>
+			<p></p>
+		</div>
+		@for (item of certificados; track item.id) {
+		<div class="certificado">
+			<p>{{ item.certificadoId }}</p>
+			<p>{{ item.certificado?.tipoCertifica ?? '-' }}</p>
+			<p>{{ item.certificado?.descricao ?? '-' }}</p>
+			<p>{{ item.ch }}h</p>
+			<p>{{ item.created | date: 'dd/MM/yyyy HH:mm' }}</p>
+			<div class="action">
+				<button class="btn-icon btn-icon-ghost-primary" matTooltip="Ver certificado"
+					[matTooltipShowDelay]="toolTipOptions.showDelay" [matTooltipHideDelay]="toolTipOptions.hideDelay"
+					[disabled]="!item.certificado" (click)="onViewCertificado(item)">
+					<mat-icon>visibility</mat-icon>
+				</button>
+			</div>
+		</div>
+		}
+		} @else if (!carregando) {
+		<p class="vazio">Nenhum certificado vinculado a este acadêmico.</p>
+		}
+
+		<mat-paginator [length]="totalElements" [pageIndex]="page" [pageSize]="size" [pageSizeOptions]="pageSizeOptions"
+			(page)="onPageChange($event)" aria-label="Selecionar página">
+		</mat-paginator>
+	</div>
+</div>

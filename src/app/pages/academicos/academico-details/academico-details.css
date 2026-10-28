@@ -35,3 +35,55 @@
 	font-weight: 600;
 	min-width: 160px;
 }
+
+.wrapper-certificados {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 22px;
+	width: 100%;
+	max-width: 1200px;
+}
+
+.list-certificados {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	border-radius: 10px;
+	border: 1px solid var(--border-color);
+	background-color: var(--surface-color);
+	box-shadow: 0 1px 3px var(--shadow-color);
+	margin-top: 8px;
+	padding: 8px 16px;
+}
+
+.cert-header,
+.certificado {
+	padding: 8px 16px;
+	display: grid;
+	grid-template-columns: 0.1fr 0.25fr 1fr 0.15fr 0.3fr 0.1fr;
+	align-items: center;
+	gap: 16px;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.cert-header {
+	font-weight: 600;
+}
+
+.certificado {
+	transition: background-color 0.15s ease;
+}
+
+.certificado:hover {
+	background-color: color-mix(in srgb, var(--primary-color) 6%, transparent);
+}
+
+.action {
+	display: flex;
+	justify-content: center;
+}
+
+.vazio {
+	padding: 16px;
+	color: var(--text-muted-color);
+}
