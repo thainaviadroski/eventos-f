@@ -7,7 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Subject, Subscription, takeUntil } from 'rxjs';
 
 import { CertificadoPreviewDialog } from '../../../components/certificado-preview-dialog/certificado-preview-dialog';
 import { FileDropzone } from '../../../components/file-dropzone/file-dropzone';
@@ -17,6 +19,7 @@ import { AcademicoCertificadoService } from '../../../service/academico-certific
 import { CertificadoImagensService } from '../../../service/certificado-imagens/certificado-imagens.service';
 import { ACADEMICO_EXEMPLO_PADRAO } from '../../../shared/utils/certificado-preview.util';
 import { TiposCertificadosInfo, toTiposCertificados } from '../../../shared/enums/TiposCertificados';
+import { PAGES_SIZE_OPTIONS } from '../../../shared/utils/Constraints';
 
 @Component({
 	selector: 'app-certificado-details',
@@ -28,6 +31,7 @@ import { TiposCertificadosInfo, toTiposCertificados } from '../../../shared/enum
 		MatFormField,
 		MatLabel,
 		MatInputModule,
+		MatPaginatorModule,
 		MatProgressSpinnerModule,
 		FileDropzone,
 	],
@@ -52,7 +56,16 @@ export class CertificadoDetails implements OnInit, OnDestroy {
 		return tipo ? TiposCertificadosInfo[tipo].name : this.certificado.tipoCertifica;
 	})();
 
+	page = 0;
+	size = 25;
 	academicos: AcademicoCertificado[] = [];
+	totalElements = 0;
+	carregandoAcademicos = false;
+
+	readonly pageSizeOptions: number[] = PAGES_SIZE_OPTIONS;
+
+	private carregamentoAcademicos?: Subscription;
+	private destroy$ = new Subject<void>();
 
 	csvFile: File | null = null;
 	importandoCsv = false;
@@ -89,6 +102,8 @@ export class CertificadoDetails implements OnInit, OnDestroy {
 	});
 
 	ngOnInit(): void {
+		this.carregarAcademicos();
+
 		this.imagensService.findByCertificado(this.certificado.id).subscribe({
 			next: imagens => {
 				const fundo = imagens.find(imagem => !imagem.verso);
@@ -113,12 +128,39 @@ export class CertificadoDetails implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
+		this.destroy$.next();
+		this.destroy$.complete();
+
 		if (this.fundoObjectUrl) {
 			URL.revokeObjectURL(this.fundoObjectUrl);
 		}
 		if (this.versoObjectUrl) {
 			URL.revokeObjectURL(this.versoObjectUrl);
 		}
+	}
+
+	carregarAcademicos(): void {
+		this.carregandoAcademicos = true;
+
+		// Cancela a requisição anterior para uma resposta atrasada não sobrescrever a página atual
+		this.carregamentoAcademicos?.unsubscribe();
+		this.carregamentoAcademicos = this.service
+			.getByCertificado(this.certificado.id, { page: this.page, size: this.size })
+			.pipe(takeUntil(this.destroy$))
+			.subscribe({
+				next: response => {
+					this.academicos = response.content;
+					this.totalElements = response.totalElements;
+					this.carregandoAcademicos = false;
+				},
+				error: () => this.carregandoAcademicos = false,
+			});
+	}
+
+	onPageChange(event: PageEvent): void {
+		this.page = event.pageIndex;
+		this.size = event.pageSize;
+		this.carregarAcademicos();
 	}
 
 	onCsvSelected(file: File | null): void {
@@ -135,10 +177,10 @@ export class CertificadoDetails implements OnInit, OnDestroy {
 		this.csvErro = null;
 
 		this.service.importCsv(this.certificado.id, this.csvFile).subscribe({
-			next: importados => {
+			next: () => {
 				this.importandoCsv = false;
 				this.csvDropzone?.reset();
-				this.academicos = [...this.academicos, ...importados];
+				this.carregarAcademicos();
 			},
 			error: () => {
 				this.importandoCsv = false;
@@ -169,10 +211,10 @@ export class CertificadoDetails implements OnInit, OnDestroy {
 		this.salvandoManual = true;
 
 		this.service.importManual(payload).subscribe({
-			next: academico => {
+			next: () => {
 				this.salvandoManual = false;
 				this.form.reset();
-				this.academicos = [...this.academicos, academico];
+				this.carregarAcademicos();
 			},
 			error: () => {
 				this.salvandoManual = false;

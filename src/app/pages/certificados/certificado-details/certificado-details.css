@@ -153,11 +153,6 @@
 	font-weight: 500;
 }
 
-.wrapper-academicos .hint {
-	font-size: 12px;
-	color: var(--text-muted-color);
-}
-
 .list-academicos {
 	border-radius: 10px;
 	border: 1px solid var(--border-color);
@@ -193,4 +188,21 @@
 mat-progress-spinner {
 	display: inline-block;
 	margin-right: 8px;
+}
+
+
+.link-download-template {
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	width: fit-content;
+	color: var(--primary-color);
+	padding-bottom: 2px;
+	transition: border-bottom 0.2s linear;
+	font-size: 12px;
+}
+
+
+.link-download-template:hover {
+	text-decoration: underline;
 }

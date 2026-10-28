@@ -1,5 +1,5 @@
 /**
- * An academic linked to a certificate, as returned by the import endpoints.
+ * An academic linked to a certificate, as returned by the import and listing endpoints.
  * The backend does not echo cpf/email/ra back on this record — only on the request.
  */
 export interface AcademicoCertificado {

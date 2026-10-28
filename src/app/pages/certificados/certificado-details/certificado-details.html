@@ -10,7 +10,8 @@
 	<div class="import-card">
 		<h3>Importar lista (CSV)</h3>
 		<p class="hint">Colunas esperadas: academico, email (opcional), cpf, ra (opcional), ch</p>
-
+		<a href="./modelos/exemplo.csv" class="link-download-template"><mat-icon>download</mat-icon> Baixar
+			modelo</a>
 		<app-file-dropzone class="file-dropzone" #csvDropzone label="Arquivo CSV" accept=".csv"
 			hint="Arquivo .csv até 5MB" [disabled]="importandoCsv"
 			(fileChange)="onCsvSelected($event)"></app-file-dropzone>
@@ -27,7 +28,7 @@
 			}
 			Importar CSV
 		</button>
-		<a href="" mat-flat-button color="primary"><mat-icon>download</mat-icon> Baixar modelos</a>
+
 	</div>
 
 	<div class="import-card">
@@ -157,11 +158,10 @@
 </div>
 
 <div class="wrapper-academicos">
-	<h3>Acadêmicos adicionados nesta sessão</h3>
-	<p class="hint">A API não expõe uma listagem dos acadêmicos já importados — esta lista reflete apenas o que foi
-		importado enquanto esta página está aberta.</p>
+	<h3>Acadêmicos vinculados</h3>
 
 	<div class="list-academicos">
+		@if (academicos.length !== 0) {
 		<div class="academico-header">
 			<p>Nome</p>
 			<p>CH</p>
@@ -171,13 +171,16 @@
 		@for (academico of academicos; track academico.id) {
 		<div class="academico-item">
 			<p>{{ academico.academico }}</p>
-			<p>{{ academico.ch }}</p>
+			<p>{{ academico.ch }}h</p>
 			<p>{{ academico.created | date: 'dd/MM/yyyy HH:mm' }}</p>
 		</div>
 		}
-
-		@if (academicos.length === 0) {
-		<p class="sem-academicos">Nenhum acadêmico importado ainda.</p>
+		} @else if (!carregandoAcademicos) {
+		<p class="sem-academicos">Nenhum acadêmico vinculado a este certificado.</p>
 		}
+
+		<mat-paginator [length]="totalElements" [pageIndex]="page" [pageSize]="size" [pageSizeOptions]="pageSizeOptions"
+			(page)="onPageChange($event)" aria-label="Selecionar página">
+		</mat-paginator>
 	</div>
 </div>

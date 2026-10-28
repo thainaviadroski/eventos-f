@@ -22,6 +22,14 @@ export class AcademicoCertificadoService {
 		);
 	}
 
+	getByCertificado(certificadoId: number, params: PaginationParams = {}): Observable<PageResponse<AcademicoCertificado>> {
+		const httpParams = buildPaginationParams(params);
+
+		return this.http.get<ApiPage<AcademicoCertificado>>(`${this.url}/certificado/${certificadoId}`, { params: httpParams }).pipe(
+			map(body => toPageResponse(body, params))
+		);
+	}
+
 	importCsv(certificadoId: number, arquivo: File): Observable<AcademicoCertificado[]> {
 		const formData = new FormData();
 		formData.append('certificadoId', certificadoId.toString());
