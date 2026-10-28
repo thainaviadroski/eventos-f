@@ -166,6 +166,7 @@
 			<p>Nome</p>
 			<p>CH</p>
 			<p>Adicionado em</p>
+			<p></p>
 		</div>
 
 		@for (academico of academicos; track academico.id) {
@@ -173,6 +174,12 @@
 			<p>{{ academico.academico }}</p>
 			<p>{{ academico.ch }}h</p>
 			<p>{{ academico.created | date: 'dd/MM/yyyy HH:mm' }}</p>
+			<div class="action">
+				<button class="btn-icon btn-icon-ghost-danger" matTooltip="Remover do certificado"
+					[matTooltipShowDelay]="300" (click)="removerAcademico(academico)">
+					<mat-icon>person_remove</mat-icon>
+				</button>
+			</div>
 		</div>
 		}
 		} @else if (!carregandoAcademicos) {

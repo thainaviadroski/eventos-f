@@ -41,4 +41,8 @@ export class AcademicoCertificadoService {
 	importManual(payload: AcademicoManualPayload): Observable<AcademicoCertificado> {
 		return this.http.post<AcademicoCertificado>(`${this.url}/import/manual`, payload);
 	}
+
+	remove(certificadoId: number, academicoId: number): Observable<void> {
+		return this.http.delete<void>(`${this.url}/certificado/${certificadoId}/academico/${academicoId}`);
+	}
 }

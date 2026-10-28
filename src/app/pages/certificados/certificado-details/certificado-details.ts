@@ -9,8 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Subject, Subscription, takeUntil } from 'rxjs';
 
+import { ConfirmDialog, ConfirmDialogData } from '../../../components/confirm-dialog/confirm-dialog';
 import { CertificadoPreviewDialog } from '../../../components/certificado-preview-dialog/certificado-preview-dialog';
 import { FileDropzone } from '../../../components/file-dropzone/file-dropzone';
 import { AcademicoCertificado, AcademicoManualPayload } from '../../../models/academico-certificado.model';
@@ -33,6 +35,7 @@ import { PAGES_SIZE_OPTIONS } from '../../../shared/utils/Constraints';
 		MatInputModule,
 		MatPaginatorModule,
 		MatProgressSpinnerModule,
+		MatTooltipModule,
 		FileDropzone,
 	],
 	templateUrl: './certificado-details.html',
@@ -219,6 +222,30 @@ export class CertificadoDetails implements OnInit, OnDestroy {
 			error: () => {
 				this.salvandoManual = false;
 			},
+		});
+	}
+
+	removerAcademico(academico: AcademicoCertificado): void {
+		const data: ConfirmDialogData = {
+			titulo: 'Remover Acadêmico',
+			mensagem: `Deseja realmente remover "${academico.academico}" deste certificado? Esta ação não poderá ser desfeita.`,
+			textoConfirmar: 'Remover',
+			mensagemSucesso: `"${academico.academico}" foi removido do certificado com sucesso.`,
+			acao: () => this.service.remove(this.certificado.id, academico.academicoId),
+		};
+
+		this.dialog.open(ConfirmDialog, {
+			width: '100%',
+			maxWidth: '480px',
+			data,
+		}).afterClosed().subscribe(removido => {
+			if (removido) {
+				// Se era o último item da página, volta uma página para não exibir uma lista vazia
+				if (this.academicos.length === 1 && this.page > 0) {
+					this.page--;
+				}
+				this.carregarAcademicos();
+			}
 		});
 	}
 

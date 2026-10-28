@@ -166,7 +166,7 @@
 	font-weight: 600;
 	padding: 8px 16px;
 	display: grid;
-	grid-template-columns: 1fr 0.3fr 0.5fr;
+	grid-template-columns: 1fr 0.3fr 0.5fr 0.1fr;
 	gap: 16px;
 	border-bottom: 1px solid var(--border-color);
 }
@@ -174,9 +174,14 @@
 .academico-item {
 	padding: 8px 16px;
 	display: grid;
-	grid-template-columns: 1fr 0.3fr 0.5fr;
+	grid-template-columns: 1fr 0.3fr 0.5fr 0.1fr;
 	gap: 16px;
 	border-bottom: 1px solid var(--border-color);
+}
+
+.academico-item .action {
+	display: flex;
+	justify-content: center;
 }
 
 .sem-academicos {
