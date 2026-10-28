@@ -1,0 +1,50 @@
+.dialog-header {
+	width: 100% !important;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.confirm-status {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 12px;
+	padding-top: 10px;
+}
+
+.confirm-status mat-icon {
+	flex-shrink: 0;
+	width: 36px;
+	height: 36px;
+	font-size: 36px;
+}
+
+.confirm-status p {
+	color: var(--text-color);
+}
+
+.confirm-alerta mat-icon {
+	color: var(--danger-color);
+}
+
+.confirm-sucesso mat-icon {
+	color: var(--success-color);
+}
+
+.confirm-erro {
+	margin-top: 12px;
+	font-size: 14px;
+	color: var(--danger-color);
+}
+
+mat-dialog-actions {
+	gap: 8px;
+}
+
+mat-dialog-actions mat-progress-spinner {
+	display: inline-block;
+	margin-right: 6px;
+	--mat-progress-spinner-active-indicator-color: currentColor;
+}

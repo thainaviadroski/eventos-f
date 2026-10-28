@@ -1,0 +1,45 @@
+<div class="dialog-header" mat-dialog-title>
+	<span>{{ data.titulo }}</span>
+	@if (estado() !== 'sucesso') {
+	<button mat-icon-button mat-dialog-close aria-label="Fechar" [disabled]="estado() === 'processando'">
+		<mat-icon>close</mat-icon>
+	</button>
+	}
+</div>
+
+<mat-dialog-content>
+	@if (estado() === 'sucesso') {
+	<div class="confirm-status confirm-sucesso" role="status">
+		<mat-icon>check_circle</mat-icon>
+		<p>{{ data.mensagemSucesso }}</p>
+	</div>
+	} @else {
+	<div class="confirm-status confirm-alerta">
+		<mat-icon>warning</mat-icon>
+		<p>{{ data.mensagem }}</p>
+	</div>
+	@if (estado() === 'erro') {
+	<p class="confirm-erro" role="alert">Não foi possível concluir a operação. Tente novamente.</p>
+	}
+	}
+</mat-dialog-content>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-actions align="end">
+	@if (estado() === 'sucesso') {
+	<button class="btn btn-primary" [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+	} @else {
+	<button class="btn btn-outline-secondary" mat-dialog-close [disabled]="estado() === 'processando'">
+		Cancelar
+	</button>
+	<button class="btn btn-danger" [disabled]="estado() === 'processando'" (click)="confirmar()">
+		@if (estado() === 'processando') {
+		<mat-progress-spinner diameter="16" mode="indeterminate"></mat-progress-spinner>
+		} @else {
+		<mat-icon>delete</mat-icon>
+		}
+		{{ data.textoConfirmar }}
+	</button>
+	}
+</mat-dialog-actions>
