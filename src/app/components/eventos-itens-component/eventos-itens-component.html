@@ -5,13 +5,13 @@
 			<p>{{ evento.descricao }}</p>
 		</div>
 		<div class="evt-actions">
-			<button class="btn-icon btn-info" (click)="onDetail()">
+			<button class="btn-icon btn-info" aria-label="Ver evento" (click)="onDetail()">
 				<mat-icon style="font-size: 18px; width: 18px; height: 18px;">visibility</mat-icon>
 			</button>
-			<button class="btn-icon btn-primary">
+			<button class="btn-icon btn-primary" aria-label="Editar evento" (click)="onEdit()">
 				<mat-icon style="font-size: 18px; width: 18px; height: 18px;">edit</mat-icon>
 			</button>
-			<button class="btn-icon btn-danger">
+			<button class="btn-icon btn-danger" aria-label="Excluir evento" (click)="onDelete()">
 				<mat-icon style="font-size: 18px; width: 18px; height: 18px;">delete</mat-icon>
 			</button>
 		</div>
@@ -19,8 +19,8 @@
 
 	<small class="evt-item-footer">
 		<b>Data de Início:</b> {{ evento.dtInicio | date:'dd/MM/yyyy' }}
-		@if(evento.dtFim){
-		|<b>Data de Fim:</b> {{ evento.dtFim | date:'dd/MM/yyyy' }}
+		@if(evento.dtFinal){
+		|<b>Data de Fim:</b> {{ evento.dtFinal | date:'dd/MM/yyyy' }}
 		}
 	</small>
 </div>

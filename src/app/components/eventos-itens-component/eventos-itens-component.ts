@@ -12,8 +12,18 @@ export class EventosItensComponent {
 	@Input() evento: any;
 
 	@Output() viewDetail = new EventEmitter<void>();
+	@Output() editEvento = new EventEmitter<void>();
+	@Output() deleteEvento = new EventEmitter<void>();
 
 	onDetail() {
 		this.viewDetail.emit();
+	}
+
+	onEdit() {
+		this.editEvento.emit();
+	}
+
+	onDelete() {
+		this.deleteEvento.emit();
 	}
 }

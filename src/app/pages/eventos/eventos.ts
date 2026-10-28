@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 import { debounceTime, filter, map, Subject, Subscription, takeUntil } from 'rxjs';
 import { EventosItensComponent } from '../../components/eventos-itens-component/eventos-itens-component';
 import { EventosService } from '../../service/eventos/eventos.service';
-import { EventosDialog } from '../../components/eventos-dialog/eventos-dialog';
+import { EventosDialog, EventosDialogData } from '../../components/eventos-dialog/eventos-dialog';
+import { ConfirmDialog, ConfirmDialogData } from '../../components/confirm-dialog/confirm-dialog';
+import { Evento } from '../../models/evento.model';
 
 import { PAGES_SIZE_OPTIONS } from '../../shared/utils/Constraints';
 
@@ -99,13 +101,40 @@ export class Eventos implements OnInit, OnDestroy {
 	}
 
 
-	openDialog() {
+	openDialog(evento?: Evento) {
+		const data: EventosDialogData = { evento };
+
 		this.dialog.open(EventosDialog, {
 			width: '100%',
 			maxWidth: '1000px',
-			height: '500px'
+			height: '500px',
+			data,
 		}).afterClosed().subscribe(result => {
 			if (result) {
+				this.carregarEventos();
+			}
+		});
+	}
+
+	onDelete(evento: Evento): void {
+		const data: ConfirmDialogData = {
+			titulo: 'Excluir Evento',
+			mensagem: `Deseja realmente excluir o evento "${evento.evento}"? Esta ação não poderá ser desfeita.`,
+			textoConfirmar: 'Excluir',
+			mensagemSucesso: `O evento "${evento.evento}" foi excluído com sucesso.`,
+			acao: () => this.service.delete(evento.id),
+		};
+
+		this.dialog.open(ConfirmDialog, {
+			width: '100%',
+			maxWidth: '480px',
+			data,
+		}).afterClosed().subscribe(excluido => {
+			if (excluido) {
+				// Se era o último item da página, volta uma página para não exibir uma lista vazia
+				if (this.eventos.length === 1 && this.page > 0) {
+					this.page--;
+				}
 				this.carregarEventos();
 			}
 		});
